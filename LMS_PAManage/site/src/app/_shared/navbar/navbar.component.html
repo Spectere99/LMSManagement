@@ -1,0 +1,43 @@
+<nav class="navbar navbar-toggleable-md navbar-light navbar-custom">
+  <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" aria-controls="exCollapsingNavbar2"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">LMS Manager</a>
+  <div [ngbCollapse]="isNavbarCollapsed" class="collapse navbar-collapse" id="exCollapsingNavbar2">
+    <ul class="nav-item dropdown mr-auto">
+      <div ngbDropdown class="d-inline-block">
+        <button class="btn btn-secondary" id="dropdownMenu1" ngbDropdownToggle>PA Requests</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <!--           <a class="dropdown-item" href="#" [routerLink]="['/PAUpload']"  routerLinkActive="active">Upload</a>
+          <a class="dropdown-item" href="#" [routerLink]="['/PAUpload']"  routerLinkActive="active">Management</a>
+          <a class="dropdown-item" href="#" [routerLink]="['/PAUpload']"  routerLinkActive="active">Reporting</a> -->
+          <button class="dropdown-item" [routerLink]="['/PAUpload']" routerLinkActive="active">Upload</button>
+          <button class="dropdown-item" [routerLink]="['/PAManage']" routerLinkActive="active">Management</button>
+          <button class="dropdown-item" [routerLink]="['/PAReports']" routerLinkActive="active">Reporting</button>
+        </div>
+      </div>
+    </ul>
+    <ul class="nav-item dropdown mr-auto">
+    </ul>
+    <ul class="nav">
+      <li class="nav-item">
+      <button class="btn btn-secondary" id="profileLink" (click)="toggleWiithShadingOptions()">Robert's Profile</button>
+      <!-- <a id="profileLink" class="btn-secondary" (click)="toggleWiithShadingOptions()">Robert's Profile</a> -->
+      <dx-popover target="#profileLink" position="top" [width]="300" [shading]="true" shadingColor="rgba(0, 0, 0, 0.5)" [(visible)]="withShadingOptionsVisible">
+        <div *dxTemplate="let data of 'content'">
+          Robert's Profile <br/>
+          Name: Robert Flowers <br/>
+          Email: rflowers@saber98.com <br/>
+          Phone: (803)984-5211 <br/>
+          <a href="#">Edit Profile</a>
+        </div>
+      </dx-popover>
+      </li>
+      &nbsp;
+      <li class="nav-item">
+          <button class="btn btn-secondary" id="logOut">Logout</button>
+      </li>
+    </ul>
+  </div>
+</nav>

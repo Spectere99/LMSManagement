@@ -1,0 +1,43 @@
+<div class="col-md-5">
+    <dx-pie-chart id="pie" title="Monthly Performance" palette="ocean" [dataSource]="performanceData">
+        <dxo-legend orientation="horizontal" itemTextPosition="right" horizontalAlignment="right" verticalAlignment="bottom" [columnCount]="4"></dxo-legend>
+        <dxo-export [enabled]="true"></dxo-export>
+        <dxi-series argumentField="createdBy" valueField="count">
+            <dxo-label [visible]="true" position="columns" [customizeText]="customizeLabel">
+                <dxo-font [size]="16"></dxo-font>
+                <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+            </dxo-label>
+        </dxi-series>
+    </dx-pie-chart>
+
+    <dx-chart
+    id="chart"
+    title="Daily Production"
+    scrollingMode="all"
+    zoomingMode="all"
+    palette="ocean"
+    [dataSource]="dailyProductionData">
+    <dxi-series valueField="rf" name="RF"></dxi-series>
+    <dxi-series valueField="sk" name="SK"></dxi-series>
+    <dxi-series valueField="am" name="AM"></dxi-series>
+    <dxi-value-axis position="right">
+        <dxo-title text="Processed"></dxo-title>
+    </dxi-value-axis>
+    <dxo-common-series-settings
+        argumentField="day"
+        type="stackedBar">
+    </dxo-common-series-settings>
+    <dxo-legend
+        verticalAlignment="bottom"
+        horizontalAlignment="center"
+        itemTextPosition="top">
+    </dxo-legend>
+    <dxo-scroll-bar  [visible]="true"></dxo-scroll-bar>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-tooltip
+        [enabled]="true"
+        location="edge"
+        [customizeTooltip]="customizeTooltip">
+    </dxo-tooltip>
+</dx-chart>
+</div>
