@@ -1,0 +1,12 @@
+E:\Code\LIMSManagement\LIMSData\LIMSData\obj\Debug\LIMSData.csprojResolveAssemblyReference.cache
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\LIMSData.dll.config
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\LIMSData.dll
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\LIMSData.pdb
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\EntityFramework.dll
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\EntityFramework.SqlServer.dll
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\EntityFramework.xml
+E:\Code\LIMSManagement\LIMSData\LIMSData\bin\Debug\EntityFramework.SqlServer.xml
+E:\Code\LIMSManagement\LIMSData\LIMSData\obj\Debug\LIMSData.dll
+E:\Code\LIMSManagement\LIMSData\LIMSData\obj\Debug\LIMSData.pdb
+E:\Code\LIMSManagement\LIMSData\LIMSData\obj\Debug\LIMSData.Migrations.LookupModel.resources
+E:\Code\LIMSManagement\LIMSData\LIMSData\obj\Debug\LIMSData.csproj.GenerateResource.Cache

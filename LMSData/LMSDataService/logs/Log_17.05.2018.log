@@ -1,0 +1,58 @@
+2018-05-17 14:18:57,508 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ - 
+2018-05-17 14:18:57,514 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ - 
+2018-05-17 14:19:01,919 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ - 
+2018-05-17 14:19:01,919 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ - 
+2018-05-17 14:27:29,045 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:27:29,052 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 14:27:30,012 [5] ERROR LMSDataService.Controllers.LookupTypesController - An error occurred while getting Lookup Types.-
+ System.InvalidCastException: Unable to cast object of type 'System.Data.Entity.Infrastructure.DbQuery`1[LIMSData.DBObjects.LookupType]' to type 'System.Data.Entity.DbSet`1[LIMSData.DBObjects.LookupType]'.
+   at LMSDataService.Controllers.LookupTypesController.GetLookupTypes(HttpRequestMessage request) in F:\Code\LMSManagement\LMSData\LMSDataService\Controllers\LookupTypesController.cs:line 49
+2018-05-17 14:28:56,317 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:28:56,324 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 14:30:02,745 [6] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:30:02,754 [6] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 14:30:18,639 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:30:18,640 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 14:30:27,631 [11] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:30:59,351 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:31:06,916 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 14:31:39,168 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode-
+ 2018-05-17 14:31:43,773 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: rflowers-
+ 2018-05-17 16:20:12,644 [11] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:21:36,350 [13] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:21:45,822 [13] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:24:26,485 [9] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:24:27,531 [9] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:25:09,937 [8] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:25:10,081 [8] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:26:54,480 [5] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:26:54,480 [5] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:32:10,599 [9] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:32:10,606 [9] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:38:22,040 [8] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:38:22,048 [8] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:44:48,034 [9] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:44:48,041 [9] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:47:12,498 [10] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:47:12,505 [10] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 16:55:16,080 [5] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 16:55:16,091 [5] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:32:21,336 [8] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:32:21,344 [8] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:34:01,199 [8] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:34:01,206 [8] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:35:35,136 [6] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:35:35,143 [6] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:37:32,102 [9] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:37:32,109 [9] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:44:18,548 [9] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:44:18,557 [9] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:51:07,574 [7] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:51:07,581 [7] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2018-05-17 21:52:20,163 [7] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2018-05-17 21:52:20,164 [7] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 

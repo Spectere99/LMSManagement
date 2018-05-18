@@ -1,0 +1,16 @@
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\LIMSData.dll.config
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\LIMSData.dll
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\LIMSData.pdb
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\EntityFramework.dll
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\EntityFramework.SqlServer.dll
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\EntityFramework.xml
+F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\EntityFramework.SqlServer.xml
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.LookupModel.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csproj.GenerateResource.Cache
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.dll
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.pdb
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PARequests_v1.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csprojResolveAssemblyReference.cache
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PARequests_v2.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PARequests_v3.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PARequests_v3_1.resources
