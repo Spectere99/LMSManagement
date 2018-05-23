@@ -18,9 +18,30 @@ namespace LMSDataService.Controllers
         private LMSDataDBContext db = new LMSDataDBContext();
 
         // GET: api/FileUploadLogs
-        public IQueryable<FileUploadLog> GetFileUploadLogs()
+        public IQueryable<FileUploadLog> GetFileUploadLogs(HttpRequestMessage request)
         {
+            var headers = request.Headers;
+            DateTime logStartDate;
+            DateTime logEndDate;
+            if (headers.Contains("logStartDate"))
+            {
+                try
+                {
+                    var dateVal = headers.GetValues("logStartDate").First();
+                    logStartDate = DateTime.Parse(headers.GetValues("logStartDate").First());
+                    logStartDate = logStartDate.Date;
+                    logEndDate = logStartDate.AddDays(1);
+                    return db.FileUploadLogs.Where(p => p.Uploaded >= logStartDate && p.Uploaded <= logEndDate);
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Invalid Request");
+                }
+            }
+
             return db.FileUploadLogs;
+
+
         }
 
         // GET: api/FileUploadLogs/5
