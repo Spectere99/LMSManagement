@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +10,15 @@ namespace LIMSData.DBObjects
 {
     public class PaRequest
     {
+        [Key]
         public int Id { get; set; }
+        [ForeignKey("FileUploadLog")]
+        public int FileUploadLogId { get; set; }
+        public FileUploadLog FileUploadLog { get; set; }
         public string PatientName { get; set; }
         public string DoctorName { get; set; }
         public string DrugName { get; set; }
-        public InsuranceCompany InsuranceCompany { get; set; }
+        public int InsuranceCompany_Id { get; set; }
         public Lookup Status { get; set; }
         public DateTime Submitted { get; set; }
         public DateTime? Approval { get; set; }

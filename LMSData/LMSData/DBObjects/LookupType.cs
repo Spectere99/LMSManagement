@@ -11,6 +11,7 @@ namespace LIMSData.DBObjects
         public int Id { get; set; }
         public string Type { get; set; }
         public bool Archived { get; set; }
+        public ICollection<Lookup> Lookups { get; set; }
 
     }
 }

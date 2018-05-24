@@ -18,9 +18,22 @@ namespace LMSDataService.Controllers
         private LMSDataDBContext db = new LMSDataDBContext();
 
         // GET: api/PaRequests
-        public IQueryable<PaRequest> GetPaRequests()
+        public IQueryable<PaRequest> GetPaRequests(HttpRequestMessage request)
         {
-            return db.PaRequests;
+            var headers = request.Headers;
+            if (headers.Contains("userid"))
+            {
+                if (headers.Contains("Id"))
+                {
+                    var id = int.Parse(headers.GetValues("Id").First());
+                    return db.PaRequests.Where(p => p.FileUploadLogId == id).Include(t=>t.FileUploadLog);
+                }
+
+                return db.PaRequests.Include(t=>t.FileUploadLog);
+
+            }
+
+            return null;
         }
 
         // GET: api/PaRequests/5

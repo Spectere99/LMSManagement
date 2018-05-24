@@ -42,10 +42,10 @@ namespace LMSDataService.Controllers
             var headers = request.Headers;
             bool showArchived = false;
 
-            if (headers.Contains("showArchived"))
-            {
-                showArchived = Boolean.Parse(headers.GetValues("showArchived").First());
-            }
+            //if (headers.Contains("showArchived"))
+            //{
+            //    showArchived = Boolean.Parse(headers.GetValues("showArchived").First());
+            //}
 
             //Check the request object to see if they passed a userId
             if (headers.Contains("userid"))
@@ -72,9 +72,30 @@ namespace LMSDataService.Controllers
                         var errRows = 0;
                         var successRows = 0;
                         var totalRowCount = 0;
+                        var fileUploadId = 0;
                         //var filePath = saveFolder + postedFile.FileName;
                         postedFile.SaveAs(filePath);
 
+                        FileUploadLog fileUploadLogRecord = db.FileUploadLogs.Create();
+
+                        fileUploadLogRecord.Id = 0;
+                        fileUploadLogRecord.Created = DateTime.Now;
+                        fileUploadLogRecord.CreatedBy = user;
+                        fileUploadLogRecord.FileName = postedFile.FileName;
+                        fileUploadLogRecord.Module = null;
+                        fileUploadLogRecord.RecordCount = totalRowCount;
+                        fileUploadLogRecord.SuccessCount = successRows;
+                        fileUploadLogRecord.FailureCount = errRows;
+                        fileUploadLogRecord.SourceIpAddress = httpRequest.UserHostAddress;
+                        fileUploadLogRecord.Uploaded = DateTime.Now;
+
+                        db.FileUploadLogs.Add(fileUploadLogRecord);
+                        db.SaveChanges();
+
+                        fileUploadId = fileUploadLogRecord.Id;
+                        fileUploadLogRecord.BatchName = fileUploadLogRecord.Created.ToString("yyyyMMdd") + fileUploadId;
+
+                        db.SaveChanges();
                         // Process the file.
                         using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                         {
@@ -130,7 +151,7 @@ namespace LMSDataService.Controllers
 
                                     if (insCompany == null) continue;
                                     {
-                                        newRequest.InsuranceCompany = insCompany;
+                                        newRequest.InsuranceCompany_Id = insCompany.Id;
                                         newRequest.CreatedBy = user;
                                         newRequest.LastModifiedBy = user;
                                         newRequest.LastModified = DateTime.Now;
@@ -142,6 +163,7 @@ namespace LMSDataService.Controllers
                                         newRequest.DrugName = dr[_DRUG_NAME_IDX].ToString();
                                         newRequest.Note = dr[_NOTES_IDX].ToString();
 
+                                        newRequest.FileUploadLogId = fileUploadId;
                                         // Need to check for Duplicates.  This is based on the Patient Name, Prescription Name and Doctor Name.
                                         var foundRequest = db.PaRequests.Any(p =>
                                             p.PatientName == newRequest.PatientName &&
@@ -173,22 +195,11 @@ namespace LMSDataService.Controllers
                                 // The result of each spreadsheet is in result.Tables
                             }
                         }
-                        // Delete the temp file.
-                        FileUploadLog fileUploadLogRecord = db.FileUploadLogs.Create();
-
-                        fileUploadLogRecord.Id = 0;
-                        fileUploadLogRecord.Created = DateTime.Now;
-                        fileUploadLogRecord.CreatedBy = user;
-                        fileUploadLogRecord.FileName = postedFile.FileName;
-                        fileUploadLogRecord.Module = null;
                         fileUploadLogRecord.RecordCount = totalRowCount;
                         fileUploadLogRecord.SuccessCount = successRows;
                         fileUploadLogRecord.FailureCount = errRows;
-                        fileUploadLogRecord.SourceIpAddress = httpRequest.UserHostAddress;
-                        fileUploadLogRecord.Uploaded = DateTime.Now;
-
-                        db.FileUploadLogs.Add(fileUploadLogRecord);
-                        db.SaveChanges();
+                        db.SaveChanges();  //Save to pickup the File Upload Log Record changes.
+                        // Delete the temp file.
                     }
 
                     // Need to delete working file.

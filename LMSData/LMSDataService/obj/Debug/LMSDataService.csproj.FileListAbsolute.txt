@@ -99,3 +99,5 @@ F:\Code\LMSManagement\LMSData\LMSDataService\bin\ExcelDataReader.DataSet.dll
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\ExcelDataReader.dll
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\ExcelDataReader.xml
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\ExcelDataReader.DataSet.xml
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.Migrations.PARequests_V4.resources
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.GenerateResource.Cache

@@ -48,10 +48,10 @@ namespace LMSDataService.Controllers
                 {
                     if (showArchived)
                     { 
-                        return Ok(db.LookupTypes);
+                        return Ok(db.LookupTypes.Include(p=>p.Lookups));
                     }
 
-                    return Ok(db.LookupTypes.Where(p => p.Archived == false).ToList());
+                    return Ok(db.LookupTypes.Where(p => p.Archived == false).Include(p=>p.Lookups).ToList());
                 }
                 catch (Exception e)
                 {

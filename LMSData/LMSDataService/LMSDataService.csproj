@@ -259,6 +259,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\FileUploadLogsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InsuranceCompaniesController.cs" />
     <Compile Include="Controllers\LookupsController.cs" />
     <Compile Include="Controllers\LookupTypesController.cs" />
     <Compile Include="Controllers\PaRequestsController.cs" />
@@ -267,6 +268,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805232345461_PARequests_V4.cs" />
+    <Compile Include="Migrations\201805232345461_PARequests_V4.Designer.cs">
+      <DependentUpon>201805232345461_PARequests_V4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -351,6 +357,11 @@
       <Project>{3660a131-191a-4e07-84b7-5a9d88ea869f}</Project>
       <Name>LMSData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201805232345461_PARequests_V4.resx">
+      <DependentUpon>201805232345461_PARequests_V4.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

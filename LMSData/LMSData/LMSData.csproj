@@ -86,6 +86,26 @@
     <Compile Include="Migrations\201805180047396_PARequests_v3_1.Designer.cs">
       <DependentUpon>201805180047396_PARequests_v3_1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805232347286_PARequests_V4.cs" />
+    <Compile Include="Migrations\201805232347286_PARequests_V4.Designer.cs">
+      <DependentUpon>201805232347286_PARequests_V4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805232354007_PARequests_V4_1.cs" />
+    <Compile Include="Migrations\201805232354007_PARequests_V4_1.Designer.cs">
+      <DependentUpon>201805232354007_PARequests_V4_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805240119205_PARequests_V4_2.cs" />
+    <Compile Include="Migrations\201805240119205_PARequests_V4_2.Designer.cs">
+      <DependentUpon>201805240119205_PARequests_V4_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805240126303_PARequests_V4_3.cs" />
+    <Compile Include="Migrations\201805240126303_PARequests_V4_3.Designer.cs">
+      <DependentUpon>201805240126303_PARequests_V4_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805240212596_PARequests_V4_4.cs" />
+    <Compile Include="Migrations\201805240212596_PARequests_V4_4.Designer.cs">
+      <DependentUpon>201805240212596_PARequests_V4_4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -110,6 +130,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201805180047396_PARequests_v3_1.resx">
       <DependentUpon>201805180047396_PARequests_v3_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232347286_PARequests_V4.resx">
+      <DependentUpon>201805232347286_PARequests_V4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805232354007_PARequests_V4_1.resx">
+      <DependentUpon>201805232354007_PARequests_V4_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805240119205_PARequests_V4_2.resx">
+      <DependentUpon>201805240119205_PARequests_V4_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805240126303_PARequests_V4_3.resx">
+      <DependentUpon>201805240126303_PARequests_V4_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805240212596_PARequests_V4_4.resx">
+      <DependentUpon>201805240212596_PARequests_V4_4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
