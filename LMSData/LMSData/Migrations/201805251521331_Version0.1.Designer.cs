@@ -6,14 +6,14 @@ namespace LIMSData.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class PARequests_v1 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class Version01 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PARequests_v1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Version01));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805171640229_PARequests_v1"; }
+            get { return "201805251521331_Version0.1"; }
         }
         
         string IMigrationMetadata.Source

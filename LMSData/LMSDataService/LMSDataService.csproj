@@ -264,6 +264,7 @@
     <Compile Include="Controllers\LookupTypesController.cs" />
     <Compile Include="Controllers\PaRequestsController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -175,7 +175,7 @@ namespace LMSDataService.Controllers
                                         newRequest.DrugName = dr[_DRUG_NAME_IDX].ToString();
                                         newRequest.Note = dr[_NOTES_IDX].ToString();
                                         newRequest.Completed = false;
-                                        newRequest.CompletedTimeStamp = DateTime.Parse("1/1/1900");
+                                        // newRequest.CompletedTimeStamp = DateTime.Parse("1/1/1900"); 
                                         newRequest.FileUploadLogId = fileUploadId;
                                         // Need to check for Duplicates.  This is based on the Patient Name, Prescription Name and Doctor Name.
                                         var foundRequest = db.PaRequests.Any(p =>

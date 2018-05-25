@@ -7,13 +7,13 @@ namespace LIMSData.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class PaRequests_V4_8 : IMigrationMetadata
+    public sealed partial class initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(PaRequests_V4_8));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201805241858466_PaRequests_V4_8"; }
+            get { return "201805251507523_initial"; }
         }
         
         string IMigrationMetadata.Source

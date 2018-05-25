@@ -3,7 +3,7 @@ namespace LIMSData.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class PARequests_v1 : DbMigration
+    public partial class initial : DbMigration
     {
         public override void Up()
         {
@@ -12,6 +12,7 @@ namespace LIMSData.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        BatchName = c.String(),
                         Uploaded = c.DateTime(nullable: false),
                         FileName = c.String(),
                         SourceIpAddress = c.String(),
@@ -27,15 +28,44 @@ namespace LIMSData.Migrations
                 .Index(t => t.Module_Id);
             
             CreateTable(
+                "dbo.Lookups",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        LookupTypeId = c.Int(nullable: false),
+                        LookupValue = c.String(),
+                        Created = c.DateTime(nullable: false),
+                        CreatedBy = c.String(),
+                        LastModified = c.DateTime(nullable: false),
+                        LastModifiedBy = c.String(),
+                        Archived = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.LookupTypes", t => t.LookupTypeId, cascadeDelete: true)
+                .Index(t => t.LookupTypeId);
+            
+            CreateTable(
                 "dbo.InsuranceCompanies",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CompanyName = c.String(),
+                        CompanyCode = c.String(),
                         Created = c.DateTime(nullable: false),
                         CreatedBy = c.String(),
                         LastModified = c.DateTime(nullable: false),
                         LastModifiedBy = c.String(),
+                        Archived = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.LookupTypes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Type = c.String(),
+                        Archived = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -44,56 +74,65 @@ namespace LIMSData.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
+                        Action = c.String(),
+                        ActionDate = c.DateTime(nullable: false),
                         RecordId = c.Int(nullable: false),
+                        Priority = c.Boolean(nullable: false),
+                        Completed = c.Boolean(nullable: false),
+                        CompletedTimeStamp = c.DateTime(),
+                        FileUploadLogId = c.Int(nullable: false),
                         PatientName = c.String(),
                         DoctorName = c.String(),
                         DrugName = c.String(),
+                        InsuranceCompany_Id = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
+                        BillingStatus = c.Int(nullable: false),
                         Submitted = c.DateTime(nullable: false),
-                        Approval = c.DateTime(nullable: false),
-                        Denial = c.DateTime(nullable: false),
+                        Approval = c.DateTime(),
+                        Denial = c.DateTime(),
                         ApprovalDocumentUrl = c.String(),
                         Note = c.String(),
-                        AssignedTo = c.String(),
-                        Archived = c.Boolean(nullable: false),
-                        ModifiedDate = c.DateTime(nullable: false),
-                        ModifiedBy = c.String(),
-                        InsuranceCompany_Id = c.Int(),
-                        Status_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.InsuranceCompanies", t => t.InsuranceCompany_Id)
-                .ForeignKey("dbo.Lookups", t => t.Status_Id)
-                .Index(t => t.InsuranceCompany_Id)
-                .Index(t => t.Status_Id);
-            
-            CreateTable(
-                "dbo.PaRequests",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        PatientName = c.String(),
-                        DoctorName = c.String(),
-                        DrugName = c.String(),
-                        Submitted = c.DateTime(nullable: false),
-                        Approval = c.DateTime(nullable: false),
-                        Denial = c.DateTime(nullable: false),
-                        ApprovalDocumentUrl = c.String(),
-                        Note = c.String(),
-                        Assigned = c.DateTime(nullable: false),
+                        Assigned = c.DateTime(),
                         AssignedTo = c.String(),
                         Created = c.DateTime(nullable: false),
                         CreatedBy = c.String(),
                         LastModified = c.DateTime(nullable: false),
                         LastModifiedBy = c.String(),
                         Archived = c.Boolean(nullable: false),
-                        InsuranceCompany_Id = c.Int(),
-                        Status_Id = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.PaRequests",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        FileUploadLogId = c.Int(nullable: false),
+                        Priority = c.Boolean(nullable: false),
+                        Completed = c.Boolean(nullable: false),
+                        CompletedTimeStamp = c.DateTime(),
+                        PatientName = c.String(),
+                        DoctorName = c.String(),
+                        DrugName = c.String(),
+                        InsuranceCompany_Id = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
+                        BillingStatus = c.Int(nullable: false),
+                        Submitted = c.DateTime(nullable: false),
+                        Approval = c.DateTime(),
+                        Denial = c.DateTime(),
+                        ApprovalDocumentUrl = c.String(),
+                        Note = c.String(),
+                        Assigned = c.DateTime(),
+                        AssignedTo = c.String(),
+                        Created = c.DateTime(nullable: false),
+                        CreatedBy = c.String(),
+                        LastModified = c.DateTime(nullable: false),
+                        LastModifiedBy = c.String(),
+                        Archived = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.InsuranceCompanies", t => t.InsuranceCompany_Id)
-                .ForeignKey("dbo.Lookups", t => t.Status_Id)
-                .Index(t => t.InsuranceCompany_Id)
-                .Index(t => t.Status_Id);
+                .ForeignKey("dbo.FileUploadLogs", t => t.FileUploadLogId, cascadeDelete: true)
+                .Index(t => t.FileUploadLogId);
             
             CreateTable(
                 "dbo.UserLogins",
@@ -126,6 +165,7 @@ namespace LIMSData.Migrations
                         CreatedBy = c.String(),
                         LastModified = c.DateTime(nullable: false),
                         LastModifiedBy = c.String(),
+                        Archived = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -133,21 +173,19 @@ namespace LIMSData.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.PaRequests", "Status_Id", "dbo.Lookups");
-            DropForeignKey("dbo.PaRequests", "InsuranceCompany_Id", "dbo.InsuranceCompanies");
-            DropForeignKey("dbo.PaRequestAudits", "Status_Id", "dbo.Lookups");
-            DropForeignKey("dbo.PaRequestAudits", "InsuranceCompany_Id", "dbo.InsuranceCompanies");
+            DropForeignKey("dbo.PaRequests", "FileUploadLogId", "dbo.FileUploadLogs");
+            DropForeignKey("dbo.Lookups", "LookupTypeId", "dbo.LookupTypes");
             DropForeignKey("dbo.FileUploadLogs", "Module_Id", "dbo.Lookups");
-            DropIndex("dbo.PaRequests", new[] { "Status_Id" });
-            DropIndex("dbo.PaRequests", new[] { "InsuranceCompany_Id" });
-            DropIndex("dbo.PaRequestAudits", new[] { "Status_Id" });
-            DropIndex("dbo.PaRequestAudits", new[] { "InsuranceCompany_Id" });
+            DropIndex("dbo.PaRequests", new[] { "FileUploadLogId" });
+            DropIndex("dbo.Lookups", new[] { "LookupTypeId" });
             DropIndex("dbo.FileUploadLogs", new[] { "Module_Id" });
             DropTable("dbo.Users");
             DropTable("dbo.UserLogins");
             DropTable("dbo.PaRequests");
             DropTable("dbo.PaRequestAudits");
+            DropTable("dbo.LookupTypes");
             DropTable("dbo.InsuranceCompanies");
+            DropTable("dbo.Lookups");
             DropTable("dbo.FileUploadLogs");
         }
     }

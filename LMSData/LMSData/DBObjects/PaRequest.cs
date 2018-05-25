@@ -17,7 +17,7 @@ namespace LIMSData.DBObjects
         public FileUploadLog FileUploadLog { get; set; }
         public Boolean Priority { get; set; }
         public Boolean Completed { get; set; }
-        public DateTime CompletedTimeStamp { get; set; }
+        public DateTime? CompletedTimeStamp { get; set; }
         public string PatientName { get; set; }
         public string DoctorName { get; set; }
         public string DrugName { get; set; }
