@@ -15,11 +15,15 @@ namespace LIMSData.DBObjects
         [ForeignKey("FileUploadLog")]
         public int FileUploadLogId { get; set; }
         public FileUploadLog FileUploadLog { get; set; }
+        public Boolean Priority { get; set; }
+        public Boolean Completed { get; set; }
+        public DateTime CompletedTimeStamp { get; set; }
         public string PatientName { get; set; }
         public string DoctorName { get; set; }
         public string DrugName { get; set; }
         public int InsuranceCompany_Id { get; set; }
-        public Lookup Status { get; set; }
+        public int Status { get; set; }
+        public int BillingStatus { get; set; }
         public DateTime Submitted { get; set; }
         public DateTime? Approval { get; set; }
         public DateTime? Denial { get; set; }

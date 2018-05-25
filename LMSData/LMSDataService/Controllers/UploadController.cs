@@ -105,11 +105,20 @@ namespace LMSDataService.Controllers
                             //  - OpenXml Excel files (2007 format; *.xlsx)
                             using (var reader = ExcelReaderFactory.CreateReader(stream))
                             {
+
+                                // Need to hold the Submitted date and the Insurance Code.  
+                                // If the following row is blank for either, then assume the one before.
+                                var curSubmitDate = string.Empty;
+                                var curInsuranceCode = string.Empty;
                                 var excelSet = reader.AsDataSet();
                                 totalRowCount = excelSet.Tables[0].Rows.Count;
                                 bool firstRow = true;
                                 foreach (DataRow dr in excelSet.Tables[0].Rows)
                                 {
+                                    var insuranceCompanyCode = dr[_INSURANCE_IDX].ToString().Trim() == string.Empty 
+                                        ? curInsuranceCode 
+                                        : dr[_INSURANCE_IDX].ToString();
+                                    curInsuranceCode = insuranceCompanyCode;
                                     if (firstRow)
                                     {
                                         firstRow = false;
@@ -119,7 +128,7 @@ namespace LMSDataService.Controllers
 
                                     newRequest.Id = 0;
                                     newRequest.Created = DateTime.Now;
-                                    var insuranceCompanyCode = dr[_INSURANCE_IDX].ToString();
+                                    
                                     InsuranceCompany insCompany = db.InsuranceCompanies.SingleOrDefault(p =>
                                         p.CompanyCode == insuranceCompanyCode);
                                     if (insCompany == null)  //If it doesn't exist, then add it by default.
@@ -155,14 +164,18 @@ namespace LMSDataService.Controllers
                                         newRequest.CreatedBy = user;
                                         newRequest.LastModifiedBy = user;
                                         newRequest.LastModified = DateTime.Now;
-                                        var submitDate = dr[_SUBMIT_DATE_IDX].ToString();
-                                        newRequest.Submitted = submitDate.Trim() == String.Empty ? DateTime.Now : DateTime.Parse(submitDate);
+                                        var submitDate = dr[_SUBMIT_DATE_IDX].ToString().Trim() == string.Empty
+                                            ? curSubmitDate
+                                            : dr[_SUBMIT_DATE_IDX].ToString();
+                                        curSubmitDate = submitDate;
+                                        newRequest.Submitted = DateTime.Parse(submitDate);
                                         newRequest.Archived = false;
                                         newRequest.DoctorName = dr[_DOCTOR_IDX].ToString();
                                         newRequest.PatientName = dr[_PATIENT_IDX].ToString();
                                         newRequest.DrugName = dr[_DRUG_NAME_IDX].ToString();
                                         newRequest.Note = dr[_NOTES_IDX].ToString();
-
+                                        newRequest.Completed = false;
+                                        newRequest.CompletedTimeStamp = DateTime.Parse("1/1/1900");
                                         newRequest.FileUploadLogId = fileUploadId;
                                         // Need to check for Duplicates.  This is based on the Patient Name, Prescription Name and Doctor Name.
                                         var foundRequest = db.PaRequests.Any(p =>

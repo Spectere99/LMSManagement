@@ -106,6 +106,26 @@
     <Compile Include="Migrations\201805240212596_PARequests_V4_4.Designer.cs">
       <DependentUpon>201805240212596_PARequests_V4_4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805241124171_PARequests_V4_5.cs" />
+    <Compile Include="Migrations\201805241124171_PARequests_V4_5.Designer.cs">
+      <DependentUpon>201805241124171_PARequests_V4_5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805241144493_PARequests_V4_6.cs" />
+    <Compile Include="Migrations\201805241144493_PARequests_V4_6.Designer.cs">
+      <DependentUpon>201805241144493_PARequests_V4_6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805241343048_PARequests_V4_7.cs" />
+    <Compile Include="Migrations\201805241343048_PARequests_V4_7.Designer.cs">
+      <DependentUpon>201805241343048_PARequests_V4_7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805241858466_PaRequests_V4_8.cs" />
+    <Compile Include="Migrations\201805241858466_PaRequests_V4_8.Designer.cs">
+      <DependentUpon>201805241858466_PaRequests_V4_8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805250150278_PaRequests_V5.cs" />
+    <Compile Include="Migrations\201805250150278_PaRequests_V5.Designer.cs">
+      <DependentUpon>201805250150278_PaRequests_V5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,6 +166,25 @@
     <EmbeddedResource Include="Migrations\201805240212596_PARequests_V4_4.resx">
       <DependentUpon>201805240212596_PARequests_V4_4.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241124171_PARequests_V4_5.resx">
+      <DependentUpon>201805241124171_PARequests_V4_5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241144493_PARequests_V4_6.resx">
+      <DependentUpon>201805241144493_PARequests_V4_6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241343048_PARequests_V4_7.resx">
+      <DependentUpon>201805241343048_PARequests_V4_7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805241858466_PaRequests_V4_8.resx">
+      <DependentUpon>201805241858466_PaRequests_V4_8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805250150278_PaRequests_V5.resx">
+      <DependentUpon>201805250150278_PaRequests_V5.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="DBScripts\PaRequest_aud_trigger_CREATE.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

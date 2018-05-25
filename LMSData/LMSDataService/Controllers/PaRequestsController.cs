@@ -63,6 +63,7 @@ namespace LMSDataService.Controllers
                 return BadRequest();
             }
 
+            paRequest.CompletedTimeStamp = DateTime.Now;
             db.Entry(paRequest).State = EntityState.Modified;
 
             try
