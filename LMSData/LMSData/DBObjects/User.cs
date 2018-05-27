@@ -19,5 +19,7 @@ namespace LIMSData.DBObjects
         public DateTime LastModified { get; set; }
         public string LastModifiedBy { get; set; }
         public bool Archived { get; set; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

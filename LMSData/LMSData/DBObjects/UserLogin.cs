@@ -9,6 +9,7 @@ namespace LIMSData.DBObjects
     public class UserLogin
     {
         public int Id { get; set; }
+        public string Login { get; set; }
         public string PasswordHash { get; set; }
         public bool LockoutEnabled { get; set; }
         public DateTime LockoutEnd { get; set; }
@@ -18,6 +19,7 @@ namespace LIMSData.DBObjects
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
         public string LastModifiedBy { get; set; }
+        public long RefreshId { get; set; }
     }
 }
 
