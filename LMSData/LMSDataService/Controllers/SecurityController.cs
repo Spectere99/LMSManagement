@@ -34,6 +34,7 @@ namespace LMSDataService.Controllers
         public IHttpActionResult Post(HttpRequestMessage request, [FromBody] string value)
         {
             var headers = request.Headers;
+            var returnMessage = string.Empty;
             //Check the request object to see if they passed a userId
             if (headers.Contains("userid"))
             {
@@ -89,6 +90,7 @@ namespace LMSDataService.Controllers
 
                             if (userAccount != null)
                             {
+                                returnMessage = "Token failed refresh check, User account disabled/locked-out";
                                 userAccount.AccessFailedCount = userAccount.AccessFailedCount + 1;
                                 if (userAccount.AccessFailedCount >= 5)
                                 {
@@ -112,7 +114,7 @@ namespace LMSDataService.Controllers
                                 throw;
                             }
 
-                            return Unauthorized();
+                            return Content(HttpStatusCode.Unauthorized, returnMessage);
                         }
                     }
                     catch (Exception e)

@@ -48,6 +48,15 @@ namespace LMSDataService.Controllers
                     {
                         var id = int.Parse(headers.GetValues("Id").First());
                         IQueryable<PaRequest> filteredResults = db.PaRequests.Where(p => p.FileUploadLogId == id).Include(t => t.FileUploadLog);
+
+                        if (headers.Contains("AssignedTo"))
+                        {
+                            var assignedTo = headers.GetValues("AssignedTo").First();
+                            IQueryable<PaRequest> assignedToFilteredRequests =
+                                filteredResults.Where(p => p.AssignedTo == assignedTo);
+
+                            return Ok(assignedToFilteredRequests);
+                        }
                         return Ok(filteredResults);
                     }
 
