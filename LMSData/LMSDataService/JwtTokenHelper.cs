@@ -18,7 +18,7 @@ namespace LMSDataService
         public static string GenerateJwtToken(string userName, string role, JwtPayload payload)
         {
             DateTime issuedAt = DateTime.UtcNow;
-            DateTime expires = DateTime.UtcNow.AddMinutes(30);
+            DateTime expires = DateTime.UtcNow.AddHours(24);
 
             var tokenHandler = new JwtSecurityTokenHandler();
 

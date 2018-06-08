@@ -55,33 +55,9 @@ namespace LMSDataService.Controllers
                                 if (LMSDataService.SecurityHelper.Sha256Hash(passwordTry).ToUpper() ==
                                     userAccount.PasswordHash.ToUpper()) //  Success!
                                 {
-                                    var refreshId = DateTime.Now.Ticks; // To verify freshness of issued Token.
-                                    JwtPayload payload = new JwtPayload();
-                                    payload.Add("isAdmin", userAccount.IsAdmin);
-                                    payload.Add("userLoginId", userAccount.Id);
-                                    payload.Add("displayName", userDetails.FirstName + " " + userDetails.LastName);
-                                    payload.Add("refreshId", refreshId);
                                     
-                                    var token = JwtTokenHelper.GenerateJwtToken(userAccount.Login,
-                                        userDetails.Role.Name, payload);
-
-                                    userAccount.AccessFailedCount = 0;
-                                    userAccount.LockoutEnabled = false;
-                                    userAccount.LockoutEnd = DateTime.Parse("1/1/1900");
-                                    userAccount.RefreshId = refreshId;
-                                    userAccount.LastModifiedBy = "SECURITY";
-                                    userAccount.LastModified = DateTime.Now;
-                                    db.Entry(userAccount).State = EntityState.Modified;
-                                    try
-                                    {
-                                        db.SaveChanges();
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        Console.WriteLine(e);
-                                        throw;
-                                    }
-                                    
+                                    SecurityController securityController = new SecurityController();
+                                    var token = securityController.RefreshToken(userAccount, userDetails);
                                     return Ok(token);
                                 }
 
@@ -138,6 +114,37 @@ namespace LMSDataService.Controllers
         {
         }
 
+        private string RefreshToken(UserLogin userAccount, User userDetails)
+        {
+            var refreshId = DateTime.Now.Ticks; // To verify freshness of issued Token.
+            JwtPayload payload = new JwtPayload();
+            payload.Add("isAdmin", userAccount.IsAdmin);
+            payload.Add("userLoginId", userAccount.Id);
+            payload.Add("displayName", userDetails.FirstName + " " + userDetails.LastName);
+            payload.Add("refreshId", refreshId);
+
+            var token = JwtTokenHelper.GenerateJwtToken(userAccount.Login,
+                userDetails.Role.Name, payload);
+
+            userAccount.AccessFailedCount = 0;
+            userAccount.LockoutEnabled = false;
+            userAccount.LockoutEnd = DateTime.Parse("1/1/1900");
+            userAccount.RefreshId = refreshId;
+            userAccount.LastModifiedBy = "SECURITY";
+            userAccount.LastModified = DateTime.Now;
+            db.Entry(userAccount).State = EntityState.Modified;
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return token;
+        }
 
         private bool UserIsLockedOut(UserLogin userLogin)
         {
@@ -168,5 +175,7 @@ namespace LMSDataService.Controllers
 
             return isLockedOut;
         }
+
+        
     }
 }

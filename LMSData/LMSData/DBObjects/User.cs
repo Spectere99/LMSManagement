@@ -21,5 +21,7 @@ namespace LIMSData.DBObjects
         public bool Archived { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
+        public int UserLoginId { get; set; }
+        public UserLogin UserLogin { get; set; }
     }
 }

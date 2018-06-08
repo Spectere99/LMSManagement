@@ -36,5 +36,7 @@ namespace LIMSData.DBObjects
         public DateTime LastModified { get; set; }
         public string LastModifiedBy { get; set; }
         public bool Archived { get; set; }
+        public bool AutomobileRelated { get; set; }
+        public bool RequestReassign { get; set; }
     }
 }

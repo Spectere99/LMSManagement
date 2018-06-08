@@ -60,8 +60,15 @@ namespace LMSDataService.Controllers
                         return Ok(filteredResults);
                     }
 
-                    IQueryable<PaRequest> results = db.PaRequests.Include(t => t.FileUploadLog);
-                    return Ok(results);
+                    if (headers.Contains("AssignedTo"))
+                    {
+                        var assignedTo = headers.GetValues("AssignedTo").First();
+                        IQueryable<PaRequest> results = db.PaRequests.Where(p=>p.AssignedTo == assignedTo).Include(t => t.FileUploadLog);
+                        return Ok(results);
+                    }
+
+                    IQueryable<PaRequest> fullResults = db.PaRequests.Include(t => t.FileUploadLog);
+                    return Ok(fullResults);
                 }
 
                 throw new Exception(validationResult.Item2);

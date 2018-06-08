@@ -47,11 +47,10 @@ namespace LIMSData.Migrations
             {
                 IList<LookupType> defaultLookupTypes = new List<LookupType>();
 
-                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 1, Type = "Roles"});
-                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 2, Type = "System"});
-                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 3, Type = "Modules"});
-                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 4, Type = "Pa_RequestStatus"});
-                defaultLookupTypes.Add(new LookupType() { Archived = false, Id = 5, Type = "BillingStatus" });
+                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 1, Type = "System"});
+                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 2, Type = "Modules"});
+                defaultLookupTypes.Add(new LookupType() {Archived = false, Id = 3, Type = "Pa_RequestStatus"});
+                defaultLookupTypes.Add(new LookupType() { Archived = false, Id = 4, Type = "BillingStatus" });
 
                 context.LookupTypes.AddRange(defaultLookupTypes);
             }
@@ -60,43 +59,27 @@ namespace LIMSData.Migrations
             {
                 IList<Lookup> defaultLookups = new List<Lookup>();
 
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 0, LookupTypeId = 1, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "User"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 1, LookupTypeId = 1, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Admin"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 2, LookupTypeId = 3, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 2, LookupTypeId = 2, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Pa_Requests"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 3, LookupTypeId = 4, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 3, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Assigned"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 4, LookupTypeId = 4, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 4, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Submitted"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 5, LookupTypeId = 4, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 5, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "On Hold"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 6, LookupTypeId = 4, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 6, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Approved"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 7, LookupTypeId = 4, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 7, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Denied"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 8, LookupTypeId = 5, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 8, LookupTypeId = 3, Created = DateTime.Now,
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Appeal"});
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 9, LookupTypeId = 4, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Ready to Invoice"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 8, LookupTypeId = 5, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 10, LookupTypeId = 4, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Invoiced"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 8, LookupTypeId = 5, Created = DateTime.Now,
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 11, LookupTypeId = 4, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Paid"});
                 context.Lookups.AddRange(defaultLookups);
-            }
-
-            if (!context.Users.Any())
-            {
-                IList<User> defaultUsers = new List<User>();
-
-                defaultUsers.Add(new User()
-                {
-                    Archived = false, Id = 1, Created = DateTime.Now, CreatedBy = "INSTALL", LastModifiedBy = "INSTALL",
-                    LastModified = DateTime.Now, Email = "rflowers@saber98.com", FirstName = "System", LastName = "Administrator",
-                    PhoneNumber = "", UserName = "admin", RoleId = 1
-                });
-
-                context.Users.AddRange(defaultUsers);
             }
 
             if (!context.UserLogins.Any())
@@ -114,6 +97,31 @@ namespace LIMSData.Migrations
 
                 context.UserLogins.AddRange(defaultUserLogins);
             }
+
+            if (!context.Users.Any())
+            {
+                IList<User> defaultUsers = new List<User>();
+
+                defaultUsers.Add(new User()
+                {
+                    Archived = false,
+                    Id = 1,
+                    Created = DateTime.Now,
+                    CreatedBy = "INSTALL",
+                    LastModifiedBy = "INSTALL",
+                    LastModified = DateTime.Now,
+                    Email = "rflowers@saber98.com",
+                    FirstName = "System",
+                    LastName = "Administrator",
+                    PhoneNumber = "",
+                    UserName = "admin",
+                    RoleId = 1,
+                    UserLoginId = 1
+                });
+
+                context.Users.AddRange(defaultUsers);
+            }
+
             base.Seed(context);
         }
     }

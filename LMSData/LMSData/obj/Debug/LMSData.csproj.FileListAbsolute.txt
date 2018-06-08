@@ -27,3 +27,5 @@ F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v11
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v12.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v13.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v14.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v10.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.User_v15.resources

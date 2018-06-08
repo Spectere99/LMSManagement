@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Batch;
 using System.Web.Http.Description;
 using LIMSData;
 using LIMSData.DBObjects;
@@ -18,94 +19,226 @@ namespace LMSDataService.Controllers
         private LMSDataDBContext db = new LMSDataDBContext();
 
         // GET: api/Users
-        public IQueryable<User> GetUsers(HttpRequestMessage request)
+        public IHttpActionResult GetUsers(HttpRequestMessage request)
         {
             var headers = request.Headers;
-            if (headers.Contains("userid"))
+            if (headers.Contains("token"))
             {
-                return db.Users;
+                var userToken = headers.GetValues("token").First();
+                Tuple<bool, string> validationResult = JwtTokenHelper.ValidateToken(userToken);
+                if (validationResult.Item1)
+                {
+                    // Check to see if the refreshId's match.  If they do not, then it means something (i.e. invalid password)
+                    //   has caused the issued token to become invalidated.  If so, then we need to send a message back to 
+                    //   the calling client.
+
+                    long refreshId = 0;
+                    if (long.TryParse(JwtTokenHelper.GetTokenPayloadValue(userToken, "refreshId"), out refreshId))
+                    {
+                        if (db.UserLogins.FirstOrDefault(p => p.RefreshId == refreshId) == null)
+                        {
+                            return Content(HttpStatusCode.Unauthorized,
+                                "Token failed refresh check, User account disabled/locked-out");
+                        }
+
+                    }
+                }
+
+                IQueryable<User> fullResults = db.Users.Include(I => I.Role).Include(t => t.UserLogin);
+                return Ok(fullResults);
             }
+
+            //if (headers.Contains("userid"))
+            //{
+            //    return db.Users;
+            //}
 
             return null;
         }
 
         // GET: api/Users/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult GetUser(int id)
+        public IHttpActionResult GetUser(int id, HttpRequestMessage request)
         {
-            User user = db.Users.Find(id);
-            if (user == null)
+            var headers = request.Headers;
+            if (headers.Contains("token"))
             {
-                return NotFound();
+                var userToken = headers.GetValues("token").First();
+                Tuple<bool, string> validationResult = JwtTokenHelper.ValidateToken(userToken);
+                if (validationResult.Item1)
+                {
+                    // Check to see if the refreshId's match.  If they do not, then it means something (i.e. invalid password)
+                    //   has caused the issued token to become invalidated.  If so, then we need to send a message back to 
+                    //   the calling client.
+
+                    long refreshId = 0;
+                    if (long.TryParse(JwtTokenHelper.GetTokenPayloadValue(userToken, "refreshId"), out refreshId))
+                    {
+                        if (db.UserLogins.FirstOrDefault(p => p.RefreshId == refreshId) == null)
+                        {
+                            return Content(HttpStatusCode.Unauthorized,
+                                "Token failed refresh check, User account disabled/locked-out");
+                        }
+
+                    }
+                }
+
+                User user = db.Users.Include(t => t.Role).Include(r => r.UserLogin).FirstOrDefault(p => p.Id == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(user);
             }
 
-            return Ok(user);
+            return null;
         }
 
         // PUT: api/Users/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutUser(int id, User user)
+        public IHttpActionResult PutUser(int id, User user, HttpRequestMessage request)
         {
-            if (!ModelState.IsValid)
+            var headers = request.Headers;
+            if (headers.Contains("token"))
             {
-                return BadRequest(ModelState);
-            }
-
-            if (id != user.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(user).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UserExists(id))
+                var userToken = headers.GetValues("token").First();
+                Tuple<bool, string> validationResult = JwtTokenHelper.ValidateToken(userToken);
+                if (validationResult.Item1)
                 {
-                    return NotFound();
+                    // Check to see if the refreshId's match.  If they do not, then it means something (i.e. invalid password)
+                    //   has caused the issued token to become invalidated.  If so, then we need to send a message back to 
+                    //   the calling client.
+
+                    long refreshId = 0;
+                    if (long.TryParse(JwtTokenHelper.GetTokenPayloadValue(userToken, "refreshId"), out refreshId))
+                    {
+                        if (db.UserLogins.FirstOrDefault(p => p.RefreshId == refreshId) == null)
+                        {
+                            return Content(HttpStatusCode.Unauthorized,
+                                "Token failed refresh check, User account disabled/locked-out");
+                        }
+
+                    }
+
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest(ModelState);
+                    }
+
+                    if (id != user.Id)
+                    {
+                        return BadRequest();
+                    }
+
+                    db.Entry(user).State = EntityState.Modified;
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!UserExists(id))
+                        {
+                            return NotFound();
+                        }
+
+                        throw;
+                    }
+
+                    return Ok(user);
                 }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(validationResult.Item2);
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return BadRequest("Token invalid or not present");
         }
 
         // POST: api/Users
         [ResponseType(typeof(User))]
-        public IHttpActionResult PostUser(User user)
+        public IHttpActionResult PostUser(HttpRequestMessage request, User user)
         {
-            if (!ModelState.IsValid)
+            var headers = request.Headers;
+            if (headers.Contains("token"))
             {
-                return BadRequest(ModelState);
+                var userToken = headers.GetValues("token").First();
+                Tuple<bool, string> validationResult = JwtTokenHelper.ValidateToken(userToken);
+                if (validationResult.Item1)
+                {
+                    // Check to see if the refreshId's match.  If they do not, then it means something (i.e. invalid password)
+                    //   has caused the issued token to become invalidated.  If so, then we need to send a message back to 
+                    //   the calling client.
+
+                    long refreshId = 0;
+                    if (long.TryParse(JwtTokenHelper.GetTokenPayloadValue(userToken, "refreshId"), out refreshId))
+                    {
+                        if (db.UserLogins.FirstOrDefault(p => p.RefreshId == refreshId) == null)
+                        {
+                            return Content(HttpStatusCode.Unauthorized,
+                                "Token failed refresh check, User account disabled/locked-out");
+                        }
+
+                    }
+
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest(ModelState);
+                    }
+
+                    db.Users.Add(user);
+                    db.Entry(user.Role).State = EntityState.Unchanged;
+                    db.SaveChanges();
+
+                    return CreatedAtRoute("DefaultApi", new {id = user.Id}, user);
+                }
+
+                return BadRequest(validationResult.Item2);
             }
 
-            db.Users.Add(user);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = user.Id }, user);
+            return BadRequest("Token invalid or not present");
         }
 
         // DELETE: api/Users/5
         [ResponseType(typeof(User))]
-        public IHttpActionResult DeleteUser(int id)
+        public IHttpActionResult DeleteUser(int id, HttpRequestMessage request)
         {
-            User user = db.Users.Find(id);
-            if (user == null)
+            var headers = request.Headers;
+            if (headers.Contains("token"))
             {
-                return NotFound();
+                var userToken = headers.GetValues("token").First();
+                Tuple<bool, string> validationResult = JwtTokenHelper.ValidateToken(userToken);
+                if (validationResult.Item1)
+                {
+                    // Check to see if the refreshId's match.  If they do not, then it means something (i.e. invalid password)
+                    //   has caused the issued token to become invalidated.  If so, then we need to send a message back to 
+                    //   the calling client.
+
+                    long refreshId = 0;
+                    if (long.TryParse(JwtTokenHelper.GetTokenPayloadValue(userToken, "refreshId"), out refreshId))
+                    {
+                        if (db.UserLogins.FirstOrDefault(p => p.RefreshId == refreshId) == null)
+                        {
+                            return Content(HttpStatusCode.Unauthorized,
+                                "Token failed refresh check, User account disabled/locked-out");
+                        }
+
+                    }
+
+                    User user = db.Users.Find(id);
+                    if (user == null)
+                    {
+                        return NotFound();
+                    }
+
+                    db.Users.Remove(user);
+                    db.SaveChanges();
+
+                    return Ok(user);
+                }
             }
 
-            db.Users.Remove(user);
-            db.SaveChanges();
-
-            return Ok(user);
+            return BadRequest("Token invalid or not present");
         }
 
         protected override void Dispose(bool disposing)
