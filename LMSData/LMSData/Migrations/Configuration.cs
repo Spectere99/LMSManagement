@@ -91,7 +91,7 @@ namespace LIMSData.Migrations
                         Id = 1, LastModifiedBy = "INSTALL", CreatedBy = "INSTALL", Created = DateTime.Now,
                         LastModified = DateTime.Now, AccessFailedCount = 0, IsAdmin = true,
                         LockoutEnabled = false, LockoutEnd = DateTime.Parse("1/1/1900"),
-                        PasswordHash = @"4A82C7AAC9F064913EFF3F1286D74B56463F2D2B0C8DE117126E8D1723CB2873", // SHA256 for pwd (Saber98)
+                        PasswordHash = @"4a82c7aac9f064913eff3f1286d74b56463f2d2b0c8de117126e8d1723cb2873", // SHA256 for pwd (Saber98)
                     Login = "admin"
                 });
 

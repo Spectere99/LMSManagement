@@ -45,7 +45,7 @@ namespace LMSDataService.Controllers
 
                     try
                     {
-                        var userDetails = db.Users.Where(p => p.UserName == login).Include(i => i.Role)
+                        var userDetails = db.Users.Where(p => p.UserName == login && p.Archived == false).Include(i => i.Role)
                             .FirstOrDefault();
                         if (userDetails == null || userDetails.Archived) return Unauthorized();
                         {

@@ -131,8 +131,10 @@ namespace LMSDataService.Controllers
                         return BadRequest();
                     }
 
-                    db.Entry(user).State = EntityState.Modified;
+                    User updUser = db.Users.Find(id);
 
+                    db.Entry(updUser).CurrentValues.SetValues(user);
+                    
                     try
                     {
                         db.SaveChanges();
