@@ -121,6 +121,10 @@
     <Compile Include="Migrations\201806071409363_User_v1.5.Designer.cs">
       <DependentUpon>201806071409363_User_v1.5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806101759097_FileUploadLogs_v1.6.cs" />
+    <Compile Include="Migrations\201806101759097_FileUploadLogs_v1.6.Designer.cs">
+      <DependentUpon>201806101759097_FileUploadLogs_v1.6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806071409363_User_v1.5.resx">
       <DependentUpon>201806071409363_User_v1.5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806101759097_FileUploadLogs_v1.6.resx">
+      <DependentUpon>201806101759097_FileUploadLogs_v1.6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

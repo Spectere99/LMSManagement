@@ -31,7 +31,7 @@ namespace LMSDataService.Controllers
                     logStartDate = DateTime.Parse(headers.GetValues("logStartDate").First());
                     logStartDate = logStartDate.Date;
                     logEndDate = logStartDate.AddDays(1);
-                    return db.FileUploadLogs.Where(p => p.Uploaded >= logStartDate && p.Uploaded <= logEndDate);
+                    return db.FileUploadLogs.Where(p => p.Uploaded >= logStartDate && p.Uploaded <= logEndDate && p.Archived == false);
                 }
                 catch (Exception e)
                 {
@@ -39,7 +39,20 @@ namespace LMSDataService.Controllers
                 }
             }
 
-            return db.FileUploadLogs;
+            var showArchived = false;
+
+            if (headers.Contains("showArchived"))
+            {
+                var archInd = Boolean.Parse(headers.GetValues("showArchived").First());
+                if (archInd)
+                {
+                    return db.FileUploadLogs;
+                }
+
+                return db.FileUploadLogs.Where(p => p.Archived==false);
+            }
+
+            return db.FileUploadLogs.Where(p=>p.Archived==false);
 
 
         }

@@ -111,7 +111,7 @@ namespace LMSDataService.Controllers
                                 var curSubmitDate = string.Empty;
                                 var curInsuranceCode = string.Empty;
                                 var excelSet = reader.AsDataSet();
-                                totalRowCount = excelSet.Tables[0].Rows.Count;
+                                totalRowCount = excelSet.Tables[0].Rows.Count - 1;
                                 bool firstRow = true;
                                 foreach (DataRow dr in excelSet.Tables[0].Rows)
                                 {

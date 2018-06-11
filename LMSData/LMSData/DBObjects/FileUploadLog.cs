@@ -21,5 +21,6 @@ namespace LIMSData.DBObjects
         public int FailureCount { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public bool Archived { get; set; }
     }
 }

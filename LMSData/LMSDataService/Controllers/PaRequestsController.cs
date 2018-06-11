@@ -53,21 +53,43 @@ namespace LMSDataService.Controllers
                         {
                             var assignedTo = headers.GetValues("AssignedTo").First();
                             IQueryable<PaRequest> assignedToFilteredRequests =
-                                filteredResults.Where(p => p.AssignedTo == assignedTo);
+                                filteredResults.Where(p => p.AssignedTo == assignedTo && p.Archived==false);
 
                             return Ok(assignedToFilteredRequests);
                         }
                         return Ok(filteredResults);
                     }
 
+                    var showArchived = false;
+
+                    if (headers.Contains("showArchived"))
+                    {
+                        var archInd = Boolean.Parse(headers.GetValues("showArchived").First());
+                        showArchived = archInd;
+                    }
                     if (headers.Contains("AssignedTo"))
                     {
                         var assignedTo = headers.GetValues("AssignedTo").First();
-                        IQueryable<PaRequest> results = db.PaRequests.Where(p=>p.AssignedTo == assignedTo).Include(t => t.FileUploadLog);
+                        IQueryable<PaRequest> results = null;
+                        if (showArchived)
+                        {
+                            results = db.PaRequests.Where(p => p.AssignedTo == assignedTo).Include(t => t.FileUploadLog);
+                            return Ok(results);
+                        }
+
+                        results = db.PaRequests.Where(p => p.AssignedTo == assignedTo && p.Archived==false).Include(t => t.FileUploadLog);
                         return Ok(results);
+
+
                     }
 
-                    IQueryable<PaRequest> fullResults = db.PaRequests.Include(t => t.FileUploadLog);
+                    IQueryable<PaRequest> fullResults = null;
+                    if (showArchived)
+                    {
+                        fullResults = db.PaRequests.Include(t => t.FileUploadLog);
+                        return Ok(fullResults);
+                    }
+                    fullResults = db.PaRequests.Where(p=>p.Archived==false).Include(t => t.FileUploadLog);
                     return Ok(fullResults);
                 }
 
@@ -118,7 +140,7 @@ namespace LMSDataService.Controllers
                 return BadRequest();
             }
 
-            paRequest.CompletedTimeStamp = DateTime.Now;
+            // paRequest.CompletedTimeStamp = DateTime.Now;
             db.Entry(paRequest).State = EntityState.Modified;
 
             try
