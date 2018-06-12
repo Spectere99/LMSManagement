@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using log4net;
 using LIMSData;
 using LIMSData.DBObjects;
 
@@ -16,30 +17,65 @@ namespace LMSDataService.Controllers
     public class InsuranceCompaniesController : ApiController
     {
         private LMSDataDBContext db = new LMSDataDBContext();
+        static ILog _log = log4net.LogManager.GetLogger(
+            System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+        );
 
         // GET: api/InsuranceCompanies
         public IQueryable<InsuranceCompany> GetInsuranceCompanies()
         {
-            return db.InsuranceCompanies;
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
+            try
+            {
+                return db.InsuranceCompanies;
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "GetInsuranceCompanies"), e);
+                throw;
+            }
+            
         }
 
         // GET: api/InsuranceCompanies/5
         [ResponseType(typeof(InsuranceCompany))]
         public IHttpActionResult GetInsuranceCompany(int id)
         {
-            InsuranceCompany insuranceCompany = db.InsuranceCompanies.Find(id);
-            if (insuranceCompany == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            return Ok(insuranceCompany);
+            try
+            {
+                InsuranceCompany insuranceCompany = db.InsuranceCompanies.Find(id);
+                if (insuranceCompany == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(insuranceCompany);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "GetInsuranceCompany"), e);
+                throw;
+            }
         }
 
         // PUT: api/InsuranceCompanies/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutInsuranceCompany(int id, InsuranceCompany insuranceCompany)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -50,56 +86,90 @@ namespace LMSDataService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(insuranceCompany).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InsuranceCompanyExists(id))
+                db.Entry(insuranceCompany).State = EntityState.Modified;
+
+                try
                 {
-                    return NotFound();
+                    db.SaveChanges();
                 }
-                else
+                catch (DbUpdateConcurrencyException)
                 {
+                    if (!InsuranceCompanyExists(id))
+                    {
+                        return NotFound();
+                    }
+
                     throw;
                 }
-            }
 
-            return StatusCode(HttpStatusCode.NoContent);
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PutInsuranceCompany"), e);
+                throw;
+            }
         }
 
         // POST: api/InsuranceCompanies
         [ResponseType(typeof(InsuranceCompany))]
         public IHttpActionResult PostInsuranceCompany(InsuranceCompany insuranceCompany)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.InsuranceCompanies.Add(insuranceCompany);
-            db.SaveChanges();
+            try
+            {
+                db.InsuranceCompanies.Add(insuranceCompany);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = insuranceCompany.Id }, insuranceCompany);
+                return CreatedAtRoute("DefaultApi", new { id = insuranceCompany.Id }, insuranceCompany);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PostInsuranceCompany"), e);
+            }
+
+            return BadRequest(ModelState);
         }
 
         // DELETE: api/InsuranceCompanies/5
         [ResponseType(typeof(InsuranceCompany))]
         public IHttpActionResult DeleteInsuranceCompany(int id)
         {
-            InsuranceCompany insuranceCompany = db.InsuranceCompanies.Find(id);
-            if (insuranceCompany == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            db.InsuranceCompanies.Remove(insuranceCompany);
-            db.SaveChanges();
+            try
+            {
+                InsuranceCompany insuranceCompany = db.InsuranceCompanies.Find(id);
+                if (insuranceCompany == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(insuranceCompany);
+                db.InsuranceCompanies.Remove(insuranceCompany);
+                db.SaveChanges();
+
+                return Ok(insuranceCompany);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "DeleteInsuranceCompany"), e);
+                throw;
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

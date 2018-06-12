@@ -37,7 +37,8 @@ declare	 @recordId				int
 		,@priority				bit
 		,@completed				bit
 		,@completedTimeStamp	datetime
-		,@billingStatus			int;
+		,@billingStatus			int
+		,@nonMeds				bit;
 
 if exists(SELECT * from inserted) and exists (SELECT * from deleted)
 begin
@@ -67,6 +68,7 @@ begin
 			,@completed = Completed
 			,@completedTimeStamp = CompletedTimeStamp
 			,@billingStatus = BillingStatus
+			,@nonMeds = NonMeds
 	FROM inserted i;
     INSERT INTO [dbo].[PaRequestAudits]
            ([RecordId]
@@ -93,7 +95,8 @@ begin
 		   ,[Priority]
 		   ,[Completed]
 		   ,[CompletedTimeStamp]
-		   ,[BillingStatus])
+		   ,[BillingStatus]
+		   ,[NonMeds])
      VALUES
            (@recordId
            ,@patientName
@@ -119,7 +122,8 @@ begin
 		   ,@priority
 		   ,@completed
 		   ,@completedTimeStamp
-		   ,@billingStatus )
+		   ,@billingStatus 
+		   ,@nonMeds)
 end
 
 If exists (Select * from inserted) and not exists(Select * from deleted)
@@ -150,6 +154,7 @@ begin
 			,@completed = Completed
 			,@completedTimeStamp = CompletedTimeStamp
 			,@billingStatus = BillingStatus
+			,@nonMeds = NonMeds
 	FROM inserted i;
     INSERT INTO [dbo].[PaRequestAudits]
            ([RecordId]
@@ -176,7 +181,8 @@ begin
 		   ,[Priority]
 		   ,[Completed]
 		   ,[CompletedTimeStamp]
-		   ,[BillingStatus])
+		   ,[BillingStatus]
+		   ,[NonMeds])
      VALUES
            (@recordId
            ,@patientName
@@ -202,7 +208,8 @@ begin
 		   ,@priority
 		   ,@completed
 		   ,@completedTimeStamp
-		   ,@billingStatus)
+		   ,@billingStatus
+		   ,@nonMeds)
 end
 
 If exists(select * from deleted) and not exists(Select * from inserted)
@@ -233,6 +240,7 @@ begin
 			,@completed = Completed
 			,@completedTimeStamp = CompletedTimeStamp
 			,@billingStatus = BillingStatus
+			,@nonMeds = NonMeds
 	FROM deleted i;
     INSERT INTO [dbo].[PaRequestAudits]
            ([RecordId]
@@ -259,7 +267,8 @@ begin
 		   ,[Priority]
 		   ,[Completed]
 		   ,[CompletedTimeStamp]
-		   ,[BillingStatus])
+		   ,[BillingStatus]
+		   ,[NonMeds])
      VALUES
            (@recordId
            ,@patientName
@@ -285,6 +294,7 @@ begin
 		   ,@priority
 		   ,@completed
 		   ,@completedTimeStamp
-		   ,@billingStatus )
+		   ,@billingStatus
+		   ,@nonMeds )
 end
 GO

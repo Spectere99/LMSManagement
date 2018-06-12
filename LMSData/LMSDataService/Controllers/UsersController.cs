@@ -44,8 +44,20 @@ namespace LMSDataService.Controllers
                     }
                 }
 
-                IQueryable<User> fullResults = db.Users.Include(I => I.Role).Include(t => t.UserLogin);
-                return Ok(fullResults);
+                bool showArchived = false;
+
+                if (headers.Contains("showArchived"))
+                {
+                    showArchived = Boolean.Parse(headers.GetValues("showArchived").First());
+                }
+
+                if (showArchived)
+                {
+                    return Ok(db.Users.Include(I => I.Role).Include(t => t.UserLogin));
+                }
+
+                return Ok(db.Users.Where(p=>p.Archived==false).Include(I => I.Role).Include(t => t.UserLogin));
+
             }
 
             //if (headers.Contains("userid"))

@@ -25,7 +25,7 @@ namespace LMSDataService.Controllers
         {
             if (_log.IsDebugEnabled)
             {
-                _log.DebugFormat("Executing call in debug mode");
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
             var headers = request.Headers;
@@ -53,7 +53,7 @@ namespace LMSDataService.Controllers
                 }
                 catch (Exception e)
                 {
-                    _log.Error("An error occurred while getting Lookup Types.", e);
+                    _log.Error(string.Format(Resource.GeneralError_Pre, "GetLookups"), e);
                     return InternalServerError(e);
                 }
             }
@@ -64,19 +64,37 @@ namespace LMSDataService.Controllers
         [ResponseType(typeof(Lookup))]
         public IHttpActionResult GetLookup(int id)
         {
-            Lookup lookup = db.Lookups.Find(id);
-            if (lookup == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            return Ok(lookup);
+            try
+            {
+                Lookup lookup = db.Lookups.Find(id);
+                if (lookup == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(lookup);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "GetLookup"), e);
+                return InternalServerError(e);
+            }
         }
 
         // PUT: api/Lookups/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutLookup(int id, Lookup lookup)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -87,54 +105,90 @@ namespace LMSDataService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(lookup).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LookupExists(id))
+                db.Entry(lookup).State = EntityState.Modified;
+
+                try
                 {
-                    return NotFound();
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!LookupExists(id))
+                    {
+                        return NotFound();
+                    }
+
+                    throw;
                 }
 
-                throw;
+                return StatusCode(HttpStatusCode.NoContent);
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PutLookup"), e);
+                return InternalServerError(e);
+            }
         }
 
         // POST: api/Lookups
         [ResponseType(typeof(Lookup))]
         public IHttpActionResult PostLookup(Lookup lookup)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.Lookups.Add(lookup);
-            db.SaveChanges();
+            try
+            {
+                db.Lookups.Add(lookup);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = lookup.Id }, lookup);
+                return CreatedAtRoute("DefaultApi", new { id = lookup.Id }, lookup);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PostLookup"), e);
+                return InternalServerError(e);
+            }
+            
         }
 
         // DELETE: api/Lookups/5
         [ResponseType(typeof(Lookup))]
         public IHttpActionResult DeleteLookup(int id)
         {
-            Lookup lookup = db.Lookups.Find(id);
-            if (lookup == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            db.Lookups.Remove(lookup);
-            db.SaveChanges();
+            try
+            {
+                Lookup lookup = db.Lookups.Find(id);
+                if (lookup == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(lookup);
+                db.Lookups.Remove(lookup);
+                db.SaveChanges();
+
+                return Ok(lookup);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "DeleteLookup"), e);
+                return InternalServerError(e);
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

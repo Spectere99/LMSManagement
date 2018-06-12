@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using log4net;
 using LIMSData;
 using LIMSData.DBObjects;
 
@@ -16,45 +17,61 @@ namespace LMSDataService.Controllers
     public class FileUploadLogsController : ApiController
     {
         private LMSDataDBContext db = new LMSDataDBContext();
-
+        static ILog _log = log4net.LogManager.GetLogger(
+            System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+        );
         // GET: api/FileUploadLogs
         public IQueryable<FileUploadLog> GetFileUploadLogs(HttpRequestMessage request)
         {
             var headers = request.Headers;
             DateTime logStartDate;
             DateTime logEndDate;
-            if (headers.Contains("logStartDate"))
+
+            if (_log.IsDebugEnabled)
             {
-                try
-                {
-                    var dateVal = headers.GetValues("logStartDate").First();
-                    logStartDate = DateTime.Parse(headers.GetValues("logStartDate").First());
-                    logStartDate = logStartDate.Date;
-                    logEndDate = logStartDate.AddDays(1);
-                    return db.FileUploadLogs.Where(p => p.Uploaded >= logStartDate && p.Uploaded <= logEndDate && p.Archived == false);
-                }
-                catch (Exception e)
-                {
-                    throw new Exception("Invalid Request");
-                }
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            var showArchived = false;
-
-            if (headers.Contains("showArchived"))
+            try
             {
-                var archInd = Boolean.Parse(headers.GetValues("showArchived").First());
-                if (archInd)
+                if (headers.Contains("logStartDate"))
                 {
-                    return db.FileUploadLogs;
+                    try
+                    {
+                        var dateVal = headers.GetValues("logStartDate").First();
+                        logStartDate = DateTime.Parse(headers.GetValues("logStartDate").First());
+                        logStartDate = logStartDate.Date;
+                        logEndDate = logStartDate.AddDays(1);
+                        return db.FileUploadLogs.Where(p => p.Uploaded >= logStartDate && p.Uploaded <= logEndDate && p.Archived == false);
+                    }
+                    catch (Exception e)
+                    {
+                        _log.Error(string.Format(Resource.GeneralError_Pre, "GetFileUploadLogs"), e);
+                        throw new Exception("Invalid Request", e);
+                    }
                 }
 
-                return db.FileUploadLogs.Where(p => p.Archived==false);
+                var showArchived = false;
+
+                if (headers.Contains("showArchived"))
+                {
+                    var archInd = Boolean.Parse(headers.GetValues("showArchived").First());
+                    if (archInd)
+                    {
+                        return db.FileUploadLogs;
+                    }
+
+                    return db.FileUploadLogs.Where(p => p.Archived == false);
+                }
+
+                return db.FileUploadLogs.Where(p => p.Archived == false);
             }
-
-            return db.FileUploadLogs.Where(p=>p.Archived==false);
-
-
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "GetFileUploadLogs"), e);
+                throw;
+            }
+            
         }
 
         // GET: api/FileUploadLogs/5
@@ -74,6 +91,11 @@ namespace LMSDataService.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutFileUploadLog(int id, FileUploadLog fileUploadLog)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -90,8 +112,9 @@ namespace LMSDataService.Controllers
             {
                 db.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException dbException)
             {
+                _log.Error(string.Format(Resource.DBConcurrencyError_Pre, "PutFileUploadLog"), dbException);
                 if (!FileUploadLogExists(id))
                 {
                     return NotFound();
@@ -109,31 +132,57 @@ namespace LMSDataService.Controllers
         [ResponseType(typeof(FileUploadLog))]
         public IHttpActionResult PostFileUploadLog(FileUploadLog fileUploadLog)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.FileUploadLogs.Add(fileUploadLog);
-            db.SaveChanges();
+            try
+            {
+                db.FileUploadLogs.Add(fileUploadLog);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = fileUploadLog.Id }, fileUploadLog);
+                return CreatedAtRoute("DefaultApi", new { id = fileUploadLog.Id }, fileUploadLog);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PostFileUploadLog"), e);
+                throw;
+            }
         }
 
         // DELETE: api/FileUploadLogs/5
         [ResponseType(typeof(FileUploadLog))]
         public IHttpActionResult DeleteFileUploadLog(int id)
         {
-            FileUploadLog fileUploadLog = db.FileUploadLogs.Find(id);
-            if (fileUploadLog == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            db.FileUploadLogs.Remove(fileUploadLog);
-            db.SaveChanges();
+            try
+            {
+                FileUploadLog fileUploadLog = db.FileUploadLogs.Find(id);
+                if (fileUploadLog == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(fileUploadLog);
+                db.FileUploadLogs.Remove(fileUploadLog);
+                db.SaveChanges();
+
+                return Ok(fileUploadLog);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "DeleteFileUploadLog"), e);
+                throw;
+            }
         }
 
         protected override void Dispose(bool disposing)

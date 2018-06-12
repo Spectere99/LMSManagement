@@ -27,7 +27,7 @@ namespace LMSDataService.Controllers
         {
             if (_log.IsDebugEnabled)
             {
-                _log.DebugFormat("Executing call in debug mode");
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
             var headers = request.Headers;
@@ -55,7 +55,7 @@ namespace LMSDataService.Controllers
                 }
                 catch (Exception e)
                 {
-                    _log.Error("An error occurred while getting Lookup Types.", e);
+                    _log.Error(string.Format(Resource.GeneralError_Pre, "GetLookupTypes."), e);
                     return InternalServerError(e);
                 }
             }
@@ -66,19 +66,38 @@ namespace LMSDataService.Controllers
         [ResponseType(typeof(LookupType))]
         public IHttpActionResult GetLookupType(int id)
         {
-            LookupType lookupType = db.LookupTypes.Find(id);
-            if (lookupType == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            return Ok(lookupType);
+            try
+            {
+                LookupType lookupType = db.LookupTypes.Find(id);
+                if (lookupType == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(lookupType);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "GetLookupType"), e);
+                return InternalServerError(e);
+            }
+            
         }
 
         // PUT: api/LookupTypes/5
         [ResponseType(typeof(void))]
         public IHttpActionResult Put(int id, LookupType lookupType)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -89,56 +108,93 @@ namespace LMSDataService.Controllers
                 return BadRequest();
             }
 
-            db.Entry(lookupType).State = EntityState.Modified;
-
             try
             {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LookupTypeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                db.Entry(lookupType).State = EntityState.Modified;
 
-            return StatusCode(HttpStatusCode.NoContent);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException dbError)
+                {
+                    if (!LookupTypeExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        _log.Error(string.Format(Resource.DBConcurrencyError_Pre, "Put:LookupTypesController"), dbError);
+                        return InternalServerError(dbError);
+                    }
+                }
+
+                return StatusCode(HttpStatusCode.NoContent);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "Put:LookupTypesController"), e);
+                return InternalServerError(e);
+            }
         }
 
         // POST: api/LookupTypes
         [ResponseType(typeof(LookupType))]
         public IHttpActionResult PostLookupType(LookupType lookupType)
         {
+            if (_log.IsDebugEnabled)
+            {
+                _log.DebugFormat(Resource.LogDebugModeMessage);
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.LookupTypes.Add(lookupType);
-            db.SaveChanges();
+            try
+            {
+                db.LookupTypes.Add(lookupType);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = lookupType.Id }, lookupType);
+                return CreatedAtRoute("DefaultApi", new { id = lookupType.Id }, lookupType);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PostLookupType"), e);
+                return InternalServerError(e);
+            }
+
         }
 
         // DELETE: api/LookupTypes/5
         [ResponseType(typeof(LookupType))]
         public IHttpActionResult DeleteLookupType(int id)
         {
-            LookupType lookupType = db.LookupTypes.Find(id);
-            if (lookupType == null)
+            if (_log.IsDebugEnabled)
             {
-                return NotFound();
+                _log.DebugFormat(Resource.LogDebugModeMessage);
             }
 
-            db.LookupTypes.Remove(lookupType);
-            db.SaveChanges();
+            try
+            {
+                LookupType lookupType = db.LookupTypes.Find(id);
+                if (lookupType == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(lookupType);
+                db.LookupTypes.Remove(lookupType);
+                db.SaveChanges();
+
+                return Ok(lookupType);
+            }
+            catch (Exception e)
+            {
+                _log.Error(string.Format(Resource.GeneralError_Pre, "PostLookupType"), e);
+                return InternalServerError(e);
+            }
+            
         }
 
         protected override void Dispose(bool disposing)

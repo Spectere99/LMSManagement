@@ -179,6 +179,7 @@ namespace LMSDataService.Controllers
                                         newRequest.FileUploadLogId = fileUploadId;
                                         // Need to check for Duplicates.  This is based on the Patient Name, Prescription Name and Doctor Name.
                                         var foundRequest = db.PaRequests.Any(p =>
+                                            p.Submitted == newRequest.Submitted &&
                                             p.PatientName == newRequest.PatientName &&
                                             p.DoctorName == newRequest.DoctorName &&
                                             p.DrugName == newRequest.DrugName);

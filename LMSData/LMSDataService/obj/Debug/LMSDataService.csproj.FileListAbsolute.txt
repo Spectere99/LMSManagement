@@ -108,3 +108,5 @@ F:\Code\LMSManagement\LMSData\LMSDataService\bin\Microsoft.IdentityModel.Tokens.
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\Microsoft.IdentityModel.Tokens.xml
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\System.IdentityModel.Tokens.Jwt.pdb
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\System.IdentityModel.Tokens.Jwt.xml
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.Resource.resources
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.GenerateResource.Cache

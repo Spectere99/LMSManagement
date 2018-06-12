@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
+using log4net;
 using LIMSData;
 using LIMSData.DBObjects;
 
@@ -17,7 +18,9 @@ namespace LMSDataService.Controllers
     public class SecurityController : ApiController
     {
         private LMSDataDBContext db = new LMSDataDBContext();
-
+        static ILog _log = log4net.LogManager.GetLogger(
+            System.Reflection.MethodBase.GetCurrentMethod().DeclaringType
+        );
         // GET: api/Security
         public IEnumerable<string> Get()
         {
@@ -38,66 +41,72 @@ namespace LMSDataService.Controllers
             //Check the request object to see if they passed a userId
             if (headers.Contains("userid"))
             {
-                var login = headers.GetValues("userid").First();
-                if (headers.Contains("password"))
+                try
                 {
-                    var passwordTry = headers.GetValues("password").First();
-
-                    try
+                    var login = headers.GetValues("userid").First();
+                    if (headers.Contains("password"))
                     {
-                        var userDetails = db.Users.Where(p => p.UserName == login && p.Archived == false).Include(i => i.Role)
-                            .FirstOrDefault();
-                        if (userDetails == null || userDetails.Archived) return Unauthorized();
+                        var passwordTry = headers.GetValues("password").First();
+
+                        try
                         {
-                            var userAccount = db.UserLogins.FirstOrDefault(p => p.Login == login);
-                            if (userAccount != null && !UserIsLockedOut(userAccount))
+                            var userDetails = db.Users.Where(p => p.UserName == login && p.Archived == false)
+                                .Include(i => i.Role)
+                                .FirstOrDefault();
+                            if (userDetails == null || userDetails.Archived) return Unauthorized();
                             {
-                                if (LMSDataService.SecurityHelper.Sha256Hash(passwordTry).ToUpper() ==
-                                    userAccount.PasswordHash.ToUpper()) //  Success!
+                                var userAccount = db.UserLogins.FirstOrDefault(p => p.Login == login);
+                                if (userAccount != null && !UserIsLockedOut(userAccount))
                                 {
-                                    
-                                    SecurityController securityController = new SecurityController();
-                                    var token = securityController.RefreshToken(userAccount, userDetails);
-                                    return Ok(token);
+                                    if (LMSDataService.SecurityHelper.Sha256Hash(passwordTry).ToUpper() ==
+                                        userAccount.PasswordHash.ToUpper()) //  Success!
+                                    {
+
+                                        SecurityController securityController = new SecurityController();
+                                        var token = securityController.RefreshToken(userAccount, userDetails);
+                                        return Ok(token);
+                                    }
                                 }
 
-                                
-                            }
-
-                            if (userAccount != null)
-                            {
-                                returnMessage = "Token failed refresh check, User account disabled/locked-out";
-                                userAccount.AccessFailedCount = userAccount.AccessFailedCount + 1;
-                                if (userAccount.AccessFailedCount >= 5)
+                                if (userAccount != null)
                                 {
-                                    userAccount.LockoutEnabled = true;
-                                    userAccount.RefreshId = 0;
-                                    userAccount.LockoutEnd = DateTime.Now.AddMinutes(15);
+                                    returnMessage = "Token failed refresh check, User account disabled/locked-out";
+                                    userAccount.AccessFailedCount = userAccount.AccessFailedCount + 1;
+                                    if (userAccount.AccessFailedCount >= 5)
+                                    {
+                                        userAccount.LockoutEnabled = true;
+                                        userAccount.RefreshId = 0;
+                                        userAccount.LockoutEnd = DateTime.Now.AddMinutes(15);
+                                    }
+
+                                    userAccount.LastModifiedBy = "SECURITY";
+                                    userAccount.LastModified = DateTime.Now;
+                                    db.Entry(userAccount).State = EntityState.Modified;
                                 }
 
-                                userAccount.LastModifiedBy = "SECURITY";
-                                userAccount.LastModified = DateTime.Now;
-                                db.Entry(userAccount).State = EntityState.Modified;
-                            }
+                                try
+                                {
+                                    db.SaveChanges();
+                                }
+                                catch (Exception e)
+                                {
+                                    Console.WriteLine(e);
+                                    throw;
+                                }
 
-                            try
-                            {
-                                db.SaveChanges();
+                                return Content(HttpStatusCode.Unauthorized, returnMessage);
                             }
-                            catch (Exception e)
-                            {
-                                Console.WriteLine(e);
-                                throw;
-                            }
-
-                            return Content(HttpStatusCode.Unauthorized, returnMessage);
+                        }
+                        catch (Exception e)
+                        {
+                            _log.Error("An error occurred while adding Users.", e);
+                            return InternalServerError(e);
                         }
                     }
-                    catch (Exception e)
-                    {
-                        //_log.Error("An error occurred while adding Users.", e);
-                        return InternalServerError(e);
-                    }
+                }
+                catch (Exception e)
+                {
+                    _log.Error(e.Message);
                 }
             }
 

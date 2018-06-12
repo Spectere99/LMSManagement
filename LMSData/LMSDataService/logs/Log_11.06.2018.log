@@ -1,0 +1,80 @@
+2018-06-11 11:00:44,375 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:00:44,385 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 11:00:48,212 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:00:48,213 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 11:01:05,666 [10] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:01:05,666 [10] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 11:01:10,334 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:01:10,334 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 11:01:10,340 [7] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:01:10,341 [7] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 11:01:22,372 [7] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 11:01:22,373 [7] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:14:43,220 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:15:18,432 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:17:25,198 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:17:25,199 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:17:46,694 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:17:46,695 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:09,411 [10] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:09,412 [10] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:09,423 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:09,423 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:19,879 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:19,880 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:31,541 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:31,542 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:31,550 [9] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:31,550 [9] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:18:53,280 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:18:53,281 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:19:27,415 [34] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:19:27,415 [34] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:19:34,481 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:19:34,482 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:19:39,834 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:19:39,834 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:19:41,759 [40] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:19:41,759 [40] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:19:41,766 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:19:41,766 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:21:01,491 [35] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:21:01,491 [35] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:21:01,500 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:21:01,500 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:22:06,572 [36] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:22:06,572 [36] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:22:06,586 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:22:06,587 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:22:24,813 [37] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:22:24,813 [37] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:23:43,677 [45] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:23:43,677 [45] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:23:46,612 [45] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:23:46,613 [45] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:23:46,628 [49] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:23:46,628 [49] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:24:42,657 [45] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:24:42,658 [45] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:24:57,050 [51] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:24:57,050 [51] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:24:57,062 [45] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:24:57,062 [45] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:25:46,790 [47] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:25:46,790 [47] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:25:46,801 [43] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:25:46,801 [43] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:25:54,689 [50] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:25:54,690 [50] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:26:15,204 [34] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:26:15,204 [34] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 14:26:15,213 [33] DEBUG LMSDataService.Controllers.LookupTypesController - Executing call in debug mode 
+ 2018-06-11 14:26:15,213 [33] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 16:14:20,147 [10] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2018-06-11 16:14:20,147 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2018-06-11 16:14:20,147 [5] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2018-06-11 16:14:20,176 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2018-06-11 16:14:24,773 [5] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2018-06-11 16:14:24,773 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2018-06-11 16:14:24,773 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 

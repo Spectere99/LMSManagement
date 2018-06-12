@@ -62,22 +62,26 @@ namespace LIMSData.Migrations
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 2, LookupTypeId = 2, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Pa_Requests"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 3, LookupTypeId = 3, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Assigned"});
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Pending"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 4, LookupTypeId = 3, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Submitted"});
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Assigned"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 5, LookupTypeId = 3, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "On Hold"});
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Submitted"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 6, LookupTypeId = 3, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Approved"});
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Incomplete"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 7, LookupTypeId = 3, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Denied"});
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "On Hold"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 8, LookupTypeId = 3, Created = DateTime.Now,
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Approved"});
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 9, LookupTypeId = 3, Created = DateTime.Now,
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Denied"});
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 10, LookupTypeId = 3, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Appeal"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 9, LookupTypeId = 4, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Ready to Invoice"});
-                defaultLookups.Add(new Lookup() { Archived = false, Id = 10, LookupTypeId = 4, Created = DateTime.Now,
-                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Invoiced"});
                 defaultLookups.Add(new Lookup() { Archived = false, Id = 11, LookupTypeId = 4, Created = DateTime.Now,
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Ready to Invoice"});
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 12, LookupTypeId = 4, Created = DateTime.Now,
+                                      CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Invoiced"});
+                defaultLookups.Add(new Lookup() { Archived = false, Id = 13, LookupTypeId = 4, Created = DateTime.Now,
                                       CreatedBy = "INSTALL", LastModified = DateTime.Now, LastModifiedBy = "INSTALL", LookupValue = "Paid"});
                 context.Lookups.AddRange(defaultLookups);
             }
