@@ -31,3 +31,4 @@ F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v1
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.User_v15.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.FileUploadLogs_v16.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v11.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v12.resources

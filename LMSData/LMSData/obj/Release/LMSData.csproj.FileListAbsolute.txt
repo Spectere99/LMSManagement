@@ -30,3 +30,5 @@ F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LIMSData.Migrations.FileUpload
 F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LMSData.csproj.GenerateResource.Cache
 F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LIMSData.dll
 F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LIMSData.pdb
+F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LIMSData.Migrations.PaRequest_v11.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Release\LIMSData.Migrations.PaRequest_v12.resources

@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201806122115573_PaRequest_v1.1.Designer.cs">
       <DependentUpon>201806122115573_PaRequest_v1.1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201806130128390_PaRequest_v1.2.cs" />
+    <Compile Include="Migrations\201806130128390_PaRequest_v1.2.Designer.cs">
+      <DependentUpon>201806130128390_PaRequest_v1.2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -171,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201806122115573_PaRequest_v1.1.resx">
       <DependentUpon>201806122115573_PaRequest_v1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806130128390_PaRequest_v1.2.resx">
+      <DependentUpon>201806130128390_PaRequest_v1.2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

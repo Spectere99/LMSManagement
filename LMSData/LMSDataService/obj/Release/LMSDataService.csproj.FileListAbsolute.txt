@@ -108,3 +108,5 @@ F:\Code\LMSManagement\LMSData\LMSDataService\bin\System.Web.Http.Owin.xml
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Release\LMSDataService.csprojResolveAssemblyReference.cache
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Release\LMSDataService.dll
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Release\LMSDataService.pdb
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Release\LMSDataService.Resource.resources
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Release\LMSDataService.csproj.GenerateResource.Cache

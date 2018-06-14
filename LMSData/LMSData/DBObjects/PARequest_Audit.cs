@@ -36,5 +36,6 @@ namespace LIMSData.DBObjects
         public bool Archived { get; set; }
         public bool AutomobileRelated { get; set; }
         public bool RequestReassign { get; set; }
+        public bool NonMeds { get; set; }
     }
 }

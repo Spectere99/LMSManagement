@@ -175,6 +175,7 @@ namespace LMSDataService.Controllers
                                         newRequest.DrugName = dr[_DRUG_NAME_IDX].ToString();
                                         newRequest.Note = dr[_NOTES_IDX].ToString();
                                         newRequest.Completed = false;
+                                        newRequest.Status = 2;  //  Default value of 'Pending'
                                         // newRequest.CompletedTimeStamp = DateTime.Parse("1/1/1900"); 
                                         newRequest.FileUploadLogId = fileUploadId;
                                         // Need to check for Duplicates.  This is based on the Patient Name, Prescription Name and Doctor Name.
