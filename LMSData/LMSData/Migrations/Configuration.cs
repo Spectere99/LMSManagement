@@ -19,6 +19,28 @@ namespace LIMSData.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+            if (!context.FileUploadLogs.Any())
+            {
+                IList<FileUploadLog> fileUploadLogs = new List<FileUploadLog>();
+
+                fileUploadLogs.Add(new FileUploadLog()
+                {
+                    Id = 1,
+                    BatchName = "NONE",
+                    Uploaded = DateTime.Now,
+                    FileName = "DO NOT ARCHIVE!",
+                    SourceIpAddress ="0",
+                    RecordCount = 0,
+                    SuccessCount = 0,
+                    FailureCount = 0,
+                    Created = DateTime.Now,
+                    CreatedBy = "INSTALL",
+                    Archived = false
+
+                });
+
+                context.FileUploadLogs.AddRange(fileUploadLogs);
+            }
 
             if (!context.Roles.Any())
             {
