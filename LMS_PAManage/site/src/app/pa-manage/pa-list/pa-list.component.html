@@ -1,62 +1,111 @@
 <div class="col-md-12">
-    <dx-data-grid id="gridContainer" [dataSource]="authorizations" [allowColumnReordering]="true" [allowColumnResizing]="true"
-    [columnAutoWidth]="true" (onContentReady)="onContentReady($event)"
-    (onCellPrepared)="onCellPrepared($event)">
-    <!--     <dxo-filter-row 
-          [visible]="true"></dxo-filter-row> -->
+  <div class="row">
+    <div *ngIf="securityMessage" class="alert alert-danger">
+        {{securityMessage}}
+    </div>
+    <div *ngIf="globals.isAdmin" class="col-md-9">
+        <div class="col-md-1 dx-field-label">Batch:</div>
+        <div class="col-md-2 float-left dx-field-value">
+          <dx-select-box [dataSource]="fileUploadLogs" displayExpr="BatchName" valueExpr="Id" [value]="fileUploadLogs !== undefined ? fileUploadLogs[0]?.Id : null" (onSelectionChanged)="pullBatchRequests($event)"></dx-select-box>
+        </div>
+    </div>
+    <div *ngIf="!securityMessage" class="col-md-3">
+      <div class="float-right dx-field-label">Record Count ({{paRequests?.length}})</div>
+    </div>
+  </div>
+  <div *ngIf="globals.isAdmin" class="row">
+    <div class="col-md-6">
+        <div class="col-md-2 dx-field-label" matTooltip="Select Records Below to Assign"
+        matTooltipPosition="right">Assign Selected To:</div>
+        <div class="col-md-4 float-left dx-field-value">
+          <dx-select-box [dataSource]="users" displayExpr="UserName" valueExpr="UserName" 
+                        [(value)]="selectedUser" 
+                        itemTemplate="item">
+                        <div *dxTemplate="let data of 'item'">
+                          {{data.FirstName}} {{data.LastName}} ({{data.UserName}})
+                        </div>
+                      </dx-select-box> 
+        </div>
+        <input type="button" class="btn btn-secondary" value="Apply" *ngIf="selectedItemKeys.length > 0" 
+          (click)="batchAssign($event)">
+      </div>
+  </div>
+  <dx-data-grid id="gridContainer" [dataSource]="paRequests" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+    (onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)" (onRowPrepared)="onRowPrepared($event)" [height]="setHeight()"
+    (onInitNewRow)="initRecord($event)" (onRowUpdating)="updateRecord($event)" (onRowInserting)="addRecord($event)" 
+    (onSelectionChanged)="selectionChanged($event)"  (onEditorPreparing)="onEditorPreparing($event)">
+    <dxo-selection
+            mode="multiple"
+        ></dxo-selection>
+    <dxo-filter-row 
+          [visible]="true"></dxo-filter-row>
     <dxo-scrolling mode="infinite"></dxo-scrolling>
     <dxo-header-filter [visible]="true"></dxo-header-filter>
     <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
     <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
     <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    <dxo-group-panel [visible]="true"></dxo-group-panel>
     <dxo-export [enabled]="true" fileName="prescription_approvals" [allowExportSelectedData]="false"></dxo-export>
-    <dxi-column dataField="id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
-    <dxi-column dataField="submitDate" caption="Date Submitted" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
-    <dxi-column dataField="physicianName" caption="Physician" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
-    <dxi-column dataField="patientName" caption="Patient" dataType="string" [visible]="true"></dxi-column>
-    <dxi-column dataField="drugName" caption="RX" dataType="string" [visible]="true"></dxi-column>
-    <dxi-column dataField="insurance" caption="Insurance" dataType="string" [visible]="true">
-        <dxo-lookup 
-          [dataSource]="insuranceLookup"
-          valueExpr="abbr"
-          displayExpr="name">
-        </dxo-lookup>
+    <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="FileUploadLogId" caption="BatchId" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="Submitted" caption="Date Submitted" dataType="date" [visible]="false" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="AssignedTo" caption="Assigned To" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="RequestReassign" caption="Reassign" dataType="boolean" [visible]="true"></dxi-column>
+    <dxi-column dataField="DoctorName" caption="Physician" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="PatientName" caption="Patient" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="DrugName" caption="RX" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="InsuranceCompany_Id" caption="Insurance" dataType="number" [visible]="true">
+      <dxo-lookup [dataSource]="insuranceLookup" valueExpr="Id" displayExpr="CompanyName">
+      </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="approvalStatus" caption="Status" dataType="string" [visible]="true">
-        <dxo-lookup 
-          [dataSource]="statusLookup"
-          valueExpr="statusCode"
-          displayExpr="status">
-        </dxo-lookup>
+    <dxi-column dataField="AutomobileRelated" caption="Auto" dataType="boolean" [visible]="true"></dxi-column>
+    <dxi-column dataField="NonMeds" caption="NonMeds" dataType="boolean" [visible]="true"></dxi-column>
+    <dxi-column dataField="Priority" caption="Priority" dataType="boolean" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="Completed" caption="Completed?" dataType="boolean" [visible]="true"></dxi-column>
+    <dxi-column dataField="CompletedTimeStamp" caption="Date Completed" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="Status" caption="Status" dataType="number" [visible]="true">
+      <dxo-lookup [dataSource]="statusLookup" valueExpr="Id" displayExpr="LookupValue">
+      </dxo-lookup>
     </dxi-column>
-    <dxi-column dataField="approvalDate" caption="Approval Date" dataType="date" [visible]="true"></dxi-column>
-    <dxi-column dataField="approvalDocLink" caption="Approval Doc" dataType="string" [visible]="true" [width]="300" cellTemplate="linkTemplate"></dxi-column>
-    <dxi-column dataField="denialDate" caption="Denial Date" dataType="date" [visible]="true"></dxi-column>
-    <dxi-column dataField="notes" caption="Notes" dataType="string" [visible]="false"></dxi-column>
-    <dxi-column dataField="createdBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="BillingStatus" caption="Billing Status" dataType="number" [visible]="true" [allowEditing]="globals.isAdmin">
+        <dxo-lookup [dataSource]="billingStatusLookup" valueExpr="Id" displayExpr="LookupValue">
+        </dxo-lookup>
+      </dxi-column>
+    <dxi-column dataField="Approval" caption="Approval Date" dataType="date" [visible]="true"></dxi-column>
+    <dxi-column dataField="ApprovalDocumentUrl" caption="Approval Doc" dataType="string" [visible]="true" [width]="300" cellTemplate="linkTemplate"></dxi-column>
+    <dxi-column dataField="Denial" caption="Denial Date" dataType="date" [visible]="true"></dxi-column>
+    <dxi-column dataField="Note" caption="Notes" dataType="string" [visible]="false"></dxi-column>
+    <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
     <div *dxTemplate="let data of 'linkTemplate'">
       <a [href]="data.value" target="_blank">{{data.value}}</a>
     </div>
-    <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="false">
-        <dxo-popup title="Edit" [showTitle]="false" [width]="900" [height]="545">
-        </dxo-popup>
-        <dxo-form  colCount="2">
-            <dxi-item itemType="group" caption="Info">
-              <dxi-item dataField="submitDate"></dxi-item>
-              <dxi-item dataField="physicianName"></dxi-item>
-              <dxi-item dataField="patientName"></dxi-item>
-              <dxi-item dataField="drugName"></dxi-item>
-              <dxi-item dataField="createdBy"></dxi-item>
-            </dxi-item>
-            <dxi-item itemType="group" caption="Details">
-              <dxi-item dataField="approvalStatus"></dxi-item>
-              <dxi-item dataField="insurance"></dxi-item>
-              <dxi-item dataField="approvalDate"></dxi-item>
-              <dxi-item dataField="denialDate"></dxi-item>
-            </dxi-item>
-            <dxi-item [colSpan]="2" dataField="approvalDocLink"></dxi-item>
-            <dxi-item [colSpan]="2" dataField="notes"></dxi-item>
-          </dxo-form>
-      </dxo-editing>
+    <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="globals.isAdmin">
+      <dxo-popup title="Edit" [showTitle]="false" [width]="900" [height]="745">
+      </dxo-popup>
+      <dxo-form colCount="2">
+        <dxi-item itemType="group" caption="General">
+          <dxi-item dataField="Submitted"></dxi-item>
+          <dxi-item dataField="DoctorName"></dxi-item>
+          <dxi-item dataField="PatientName"></dxi-item>
+          <dxi-item dataField="DrugName"></dxi-item>
+          <dxi-item dataField="CreatedBy"></dxi-item>
+          <dxi-item dataField="RequestReassign"></dxi-item>
+          <dxi-item dataField="BillingStatus"></dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" caption="Tracking Details">
+          <dxi-item dataField="AssignedTo"></dxi-item>
+          <dxi-item dataField="Priority"></dxi-item>
+          <dxi-item dataField="Status"></dxi-item>
+          <dxi-item dataField="NonMeds"></dxi-item>
+          <dxi-item dataField="AutomobileRelated"></dxi-item>
+          <dxi-item dataField="InsuranceCompany_Id"></dxi-item>
+          <dxi-item dataField="Approval"></dxi-item>
+          <dxi-item dataField="Denial"></dxi-item>
+          <dxi-item dataField="Completed"></dxi-item>
+        </dxi-item>
+        <dxi-item [colSpan]="2" dataField="ApprovalDocumentUrl"></dxi-item>
+        <dxi-item dataField="Note" [editorOptions]="{ height: 90 }" [colSpan]="2"></dxi-item>
+      </dxo-form> 
+    </dxo-editing>
   </dx-data-grid>
 </div>

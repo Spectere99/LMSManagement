@@ -1,33 +1,29 @@
-<div class="widget-container">
-    <dx-file-uploader
-        #fileUploader
-        uploadUrl="http://localhost:51060/api/Upload"
-        [multiple]="true"
-        accept=".xlsx"
-        [(value)]="value"
-        uploadMode="useButtons"
-        [uploadHeaders]="uploadHeaders"
-    ></dx-file-uploader>
-    <dx-button *ngIf="value.length > 0" [text]="clearButtonText" [type]="normal" (onClick)="clearQueue()"></dx-button>
-    <!-- <button class="btn btn-outline-secondary" (click)="clearQueue()">Clear Queue</button> -->
-    <div class="content">
-        <div *ngIf="value.length > 0">
-            <h4>Selected Files</h4>
-        </div>
-        <div *ngFor="let file of value">
-            <div class="selected-item">
-                <strong>Name: </strong>
-                <span>{{file.name}}</span><br /> Size:
-                <span>{{file.size}}</span>bytes<br /> Type:
-                <span>{{file.type}}</span><br /> Last Modified Date:
-                <span>{{file.lastModifiedDate}}</span>
+<div class="container">
+    <div class="row col-md-12">
+        <div class="widget-container col-md-5">
+            <dx-file-uploader #fileUploader [uploadUrl]="uploadURL" [multiple]="true" accept=".xlsx" [(value)]="value"
+                uploadMode="useButtons" [uploadHeaders]="uploadHeaders" (onUploaded)="uploadComplete($event);"></dx-file-uploader>
+            <dx-button *ngIf="value.length > 0" [text]="clearButtonText" [type]="normal" (onClick)="clearQueue()"></dx-button>
+            <!-- <button class="btn btn-outline-secondary" (click)="clearQueue()">Clear Queue</button> -->
+            <div class="content">
+                <div *ngIf="value.length > 0">
+                    <h4>Selected Files</h4>
+                </div>
+                <div *ngFor="let file of value">
+                    <div class="selected-item">
+                        <strong>Name: </strong>
+                        <span>{{file.name}}</span>
+                        <br /> Size:
+                        <span>{{file.size}}</span>bytes
+                        <br /> Last Modified Date:
+                        <span>{{file.lastModifiedDate}}</span>
+                    </div>
+                    <hr>
+                </div>
             </div>
-            <hr>
         </div>
-    </div>
-</div>
-<div>
-    <div *ngFor="let uploadedFile of uploadedFiles">
-        {{uploadedFile.FileName}} | {{uploadedFile.Uploaded | date: 'MM/dd/yyyy'}}
+        <div class="col-md-7">
+            <app-file-upload-log></app-file-upload-log>
+        </div>
     </div>
 </div>

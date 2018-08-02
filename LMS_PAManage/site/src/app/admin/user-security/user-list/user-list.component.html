@@ -1,0 +1,182 @@
+<div class="col-md-12">
+  <div class="alert alert-secondary col-md-6">
+    <p class="small">Click on a user row to edit. Click on the 'New User' button to add a new user
+    </p>
+  </div>
+  <div class="row">
+    <div *ngIf="securityMessage" class="alert alert-danger">
+      {{securityMessage}}
+    </div>
+  </div>
+  <div class="col-md-2">
+    <input class="form-control btn-primary" style="font-size:10px;" type="button" value="New User" (click)="initRecord($event)">
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <dx-data-grid id="gridContainer" [dataSource]="users" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+        [height]="setHeight()" (onRowClick)="onRowClick($event)"  (onRowPrepared)="onRowPrepared($event)">
+        <!--(onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)" 
+        (onRowUpdating)="updateRecord($event)" (onInitNewRow)="initRecord($event)" (onRowInserting)="addRecord($event)">-->
+        <dxo-paging [enabled]="true">
+        </dxo-paging>
+        <dxo-pager [showInfo]="true" infoText="Page {0} of {1} ({2} items)">
+        </dxo-pager>
+        <!-- <dxo-scrolling mode="infinite"></dxo-scrolling> -->
+        <dxo-header-filter [visible]="true"></dxo-header-filter>
+        <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+        <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+        <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+        <dxo-selection mode="single">
+          <!-- "multiple" | "none" -->
+        </dxo-selection>
+        <dxo-export [enabled]="true" fileName="insurance_companies" [allowExportSelectedData]="false"></dxo-export>
+        <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="UserName" caption="User Name" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="FirstName" caption="First Name" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="LastName" caption="Last Name" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="Email" caption="Email" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="PhoneNumber" caption="Phone" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="RoleId" caption="Role" dataType="string" [visible]="false" [allowEditing]="true"></dxi-column>
+        <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="LastModifiedBy" caption="Last Modified By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+        <dxi-column dataField="Archived" caption="Archived?" dataType="boolean" [visible]="true" [allowEditing]="true"></dxi-column>
+        <!-- <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true">
+      </dxo-editing> -->
+      </dx-data-grid>
+    </div>
+    <div *ngIf="editing" class="col-md-4">
+      <h5>New User</h5>
+      <div *ngIf="selectedUser.UserLogin.LockoutEnabled" class="alert alert-danger">User is currently locked.  Reset Password to Unlock.</div>
+      <form (ngSubmit)="udpateRecord()">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="userName">User Name</label>
+            <input type="text" class="form-control" id="userName" required [(ngModel)]="selectedUser.UserName" name="userName" #userName="ngModel">
+            <p *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+              User Name is Required
+            </p>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div *ngIf="newUser" [formGroup]="passwordFormGroup" class="row">
+          <div class="form-group col-md-6">
+            <label for="password">Password</label>
+            <input class="form-control" type="password" name="password" formControlName="password">
+          </div>
+          <p class="text-danger" *ngIf="passwordFormGroup.controls.password.errors?.required && passwordFormGroup.controls.password.touched">Password is required</p>
+
+          <div class="form-group col-md-6">
+            <label for="repeatPassword">Repeat Password</label>
+            <input class="form-control" type="password" name="repeatPassword" formControlName="repeatPassword">
+          </div>
+          <p class="text-danger" *ngIf="passwordFormGroup.controls.repeatPassword.errors?.required && passwordFormGroup.controls.repeatPassword.touched">Repeat password is required</p>
+          <p class="text-danger" *ngIf="passwordFormGroup.errors?.doesMatchPassword">Password does not match</p>
+
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="form-group col-md-5">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" id="firstName" required [(ngModel)]="selectedUser.FirstName" name="firstName" #firstName="ngModel">
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+              First Name is Required
+            </div>
+          </div>
+          <div class="form-group col-md-5">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control" id="lastName" required [(ngModel)]="selectedUser.LastName" name="lastName" #lastName="ngModel">
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+              Last Name is Required
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="form-group col-md-5">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" required [(ngModel)]="selectedUser.Email" name="email" #email="ngModel">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+              Email is Required
+            </div>
+          </div>
+          <div class="form-group col-md-5">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" id="phoneNumber" required [ngModel]="selectedUser.PhoneNumber | phoneFormat" (ngModelChange)="selectedUser.PhoneNumber=$event" name="phoneNumber"
+              #phoneNumber="ngModel">
+            <!-- <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched)" class="alert alert-danger">
+              Phone Number is Required
+            </div> -->
+          </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="row">
+          <div class="form-group col-md-5">
+            <label for="role">Role</label>
+            <select class="form-control" name="role" [ngModel]="selectedUser.RoleId" (ngModelChange)="onRoleChange($event)">
+              <option *ngFor="let aRole of roleList" [ngValue]="aRole.Id">
+                {{ aRole.Name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-5">
+            <strong>Created:</strong> {{ selectedUser.Created | date: 'MM/dd/yyyy'}}
+            <br>
+            <strong>Last Modified:</strong> {{ selectedUser.LastModified | date: 'MM/dd/yyyy'}}
+            <div *ngIf="!newUser" class="form-group">
+                <button class="form-control btn btn-primary" type="button" (click)="resetPassword()">Reset Password</button>
+            </div>
+          </div>
+          <div class="form-group col-md-5">
+              
+          </div>
+
+        </div>
+        <div class="form-group col-md-5">
+          <label for="isAdmin">Is Admin &nbsp; </label>
+          <input type="checkbox" name="isAdmin" [(ngModel)]="selectedUser.UserLogin.IsAdmin">
+        </div>
+        <div class="form-group col-md-5">
+          <label for="archived">Archived &nbsp;</label>
+          <input type="checkbox" name="archived" [(ngModel)]="selectedUser.Archived">
+        </div>
+
+        <div *ngIf="!newUser" class="form-group">
+            <button class="form-control btn btn-primary" type="submit" [disabled]="!userName.valid">Save Changes</button>
+        </div>
+        <div *ngIf="newUser" class="form-group">
+            <button class="form-control btn btn-primary" type="submit" [disabled]="!passwordFormGroup.valid && !userName.valid" >Create User</button>
+        </div>
+      </form>
+    </div>
+    <dx-popup
+        class="popup"
+        [width]="400"
+        [height]="250"
+        [showTitle]="true"
+        title="Reset Password"
+        [dragEnabled]="false"
+        [closeOnOutsideClick]="false"
+        [(visible)]="passwordReset">
+        <div *dxTemplate="let data of 'content'">
+          <div class="container">
+            <div class="col-md-12">
+                <label for="password">Enter New Password</label>
+                <input class="form-control" type="password" name="password" requied [(ngModel)]="newPasswordValue">
+            </div>
+            <div class="row"><br></div>
+            <div class="row">
+              <div class="col-md-6">
+                <button class="form-control btn btn-primary" type="button" (click)="doPasswordReset()">Reset Password</button>
+              </div>
+              <div class="col-md-6">
+                  <button class="form-control btn btn-secondary" type="button" (click)="cancelPasswordReset()">Cancel</button>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+    </dx-popup>
+  </div>
+</div>

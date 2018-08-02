@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Http, Headers } from '@angular/http';
 import { Router } from '@angular/router';
+import { Globals } from '../globals';
+import { WindowRef } from '../_services/window-ref.service';
 import { DxButtonModule, DxLoadPanelModule, DxCheckBoxModule } from 'devextreme-angular';
 
-// import { AuthenticationService } from '../_services/authentication.service';
+import { AuthenticationService } from '../_services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -14,16 +16,18 @@ import { DxButtonModule, DxLoadPanelModule, DxCheckBoxModule } from 'devextreme-
 
 export class LoginComponent implements OnInit {
 // baseURL = 'http://localhost:56543/api/Security';
-private message: string;
-private loginForm;
-private loading = false;
+message: string;
+errorMessage: string;
+loginForm;
+loading = false;
+window;
 
 
-  constructor(
-        private _router: Router,
-        private fb: FormBuilder) {
-       // private _authService: AuthenticationService)
+  constructor(public globals: Globals, public windowRef: WindowRef,
+              private _router: Router, private fb: FormBuilder,
+              private _authService: AuthenticationService) {
         console.log('Creating Form');
+        this.window = windowRef.nativeWindow;
         this.createForm();
 }
     private createForm(): void {
@@ -33,22 +37,22 @@ private loading = false;
         });
     }
 
-    private submitted() {
+    public submitted() {
         console.log('submitting Login Request', this.loginForm);
         if (this.loginForm.invalid) { return; }
 
         this.loading = true;
-        /* this._authService.login(this.loginForm.value.userName, this.loginForm.value.passwordText)
+        this._authService.login(this.loginForm.value.userName, this.loginForm.value.passwordText)
             .subscribe(() => {
                 this.loading = false;
-
-                const to: string = this._authService.getRedirectUrl() || '/Customer';
+                const to: string = this._authService.getRedirectUrl() || '/';
                 this._router.navigate([to]);
             }, (error) => {
                 this.loading = false;
-                this.message = 'Invalid User Name or Password.  Unable to Authenticate';
+                this.message = error.status === 401 ? 'Username or Password incorrect.' : 'Unable to Authenticate';
+                this.errorMessage = '(Error: ' + error.status + '-' + error.statusText + ') - ' + error._body;
                 console.error('auth error', error);
-            }); */
+            });
 
             this._router.navigate(['/']);
     }
@@ -62,7 +66,7 @@ private loading = false;
       return headers;
   }
 
-/*   login() {
+/* login() {
     console.log('User:', this.userName);
     this._authService.login(this.userName, this.password)
         .subscribe(result => {
@@ -76,8 +80,8 @@ private loading = false;
   } */
 
   ngOnInit() {
-    // this.message = this._authService.message;
-    // this._authService.clear();
+    this.message = this._authService.message;
+    this._authService.clear();
   }
 
 }

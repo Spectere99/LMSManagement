@@ -1,0 +1,17 @@
+<div class="container float-left">
+  <dx-chart id="chart" title="Status By User" scrollingMode="all" width="500" [dataSource]="userStatusData">
+    <dxo-size [width]="1000" [height]="600"></dxo-size>
+    <dxi-value-axis position="right">
+      <dxo-title text="Processed"></dxo-title>
+    </dxi-value-axis>
+    <dxo-common-series-settings argumentField="user" type="stackedBar" valueField="count">
+    </dxo-common-series-settings>
+    <dxo-series-template nameField="status"></dxo-series-template>
+    <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" itemTextPosition="top">
+    </dxo-legend>
+    <dxo-scroll-bar [visible]="true"></dxo-scroll-bar>
+    <dxo-export [enabled]="true"></dxo-export>
+    <dxo-tooltip [enabled]="true" location="edge" zIndex="99" [customizeTooltip]="customizeTooltip">
+    </dxo-tooltip>
+  </dx-chart>
+</div>

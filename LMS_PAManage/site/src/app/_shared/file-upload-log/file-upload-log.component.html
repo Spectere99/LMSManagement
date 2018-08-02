@@ -1,0 +1,123 @@
+<div class="container">
+    <h5 *ngIf="!manageMode" mat-header>File Upload Log (Today)</h5>
+    <h5 *ngIf="manageMode" mat-header>Batch Management</h5>
+    <p>({{uploadedFiles?.length}}) files</p>
+</div>
+<dx-data-grid id="gridContainer" [dataSource]="uploadedFiles" [allowColumnReordering]="true" [allowColumnResizing]="true"
+    [columnAutoWidth]="true" [height]="manageMode ? setHeight() : 600" (onRowPrepared)="onRowPrepared($event)">
+    <dxo-paging [enabled]="true">
+    </dxo-paging>
+    <dxo-pager [showInfo]="true" infoText="Page {0} of {1} ({2} items)">
+    </dxo-pager>
+    <!-- <dxo-scrolling mode="infinite"></dxo-scrolling> -->
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+    <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+    <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+    <dxo-selection mode="manageMode ? single : none">
+        <!-- "multiple" | "none" -->
+    </dxo-selection>
+    <dxo-export [enabled]="true" fileName="insurance_companies" [allowExportSelectedData]="false"></dxo-export>
+    <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="BatchName" caption="Batch" dataType="string" [visible]="true" [allowEditing]="false" cellTemplate="batchLinkCell"></dxi-column>
+    <dxi-column dataField="Uploaded" caption="Uploaded" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="FileName" caption="File Name" dataType="string" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="RecordCount" caption="Total Records" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="SuccessCount" caption="Import Success" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="FailureCount" caption="Import Failures" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="SourceIpAddress" caption="Source" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+    <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="LastModifiedBy" caption="Last Modified By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="Archived" caption="Archived?" dataType="boolean" [visible]="true" [allowEditing]="true"></dxi-column>
+    <!-- <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true">
+      </dxo-editing> -->
+    <div *dxTemplate="let batch of 'batchLinkCell'">
+        <a [routerLink]="" (click)="showDetails(batch.data)">{{batch.value}}</a>
+        <!-- <button type="button" class="btn btn-outline-primary btn-xs" (click)="showEditPopup(data)">{{data.value}}</button> -->
+    </div>
+</dx-data-grid>
+
+<dx-popup class="popup" [width]="700" [height]="650" [showTitle]="true" [dragEnabled]="false" [closeOnOutsideClick]="false"
+    [(visible)]="showPopup">
+    <div *dxTemplate="let data of 'title'">
+        <h6>{{batchDetailTitle}}</h6>
+    </div>
+    <div *dxTemplate="let data of 'content'">
+        <div class="container">
+            <div class="row">
+                <strong>Uploaded:</strong>&nbsp;{{currentBatch.Uploaded | date}}
+            </div>
+            <div class="row">
+                <strong>Source File:</strong>&nbsp;{{currentBatch.FileName}}
+            </div>
+            <div class="row col-md-12">
+                <div class="col-md-4">
+                    <h6>
+                        <span class="badge badge-success">{{currentBatch.SuccessCount}} Imported</span>
+                    </h6>
+                </div>
+                <div class="col-md-4">
+                    <h6>
+                        <span class="badge badge-danger">{{currentBatch.FailureCount}} Errors</span>
+                    </h6>
+                </div>
+                <div class="col-md-4">
+                    <h6>
+                        <span class="badge badge-secondary">{{currentBatch.RecordCount}} Processed</span>
+                    </h6>
+                </div>
+            </div>
+            <hr>
+            <div class="row col-md-12">
+                <div class="col-md-6">
+                    <h5>Batch Statistics</h5>
+                    <div *ngFor="let batch of batchStatistics">
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                {{batch.Display}}
+                            </div>
+                            <div class="col-md-5">
+                                <h5>
+                                    <span class="badge badge-secondary">{{batch.Count}}</span>
+                                </h5>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>Billing Statistics</h5>
+                    <div *ngFor="let billing of billingStatistics">
+                        <div class="row">
+                            <div class="col-md-5 float-right">
+                                {{billing.Display}}
+                            </div>
+                            <div class="col-md-5">
+                                <h5>
+                                    <span class="badge badge-secondary">{{billing.Count}}</span>
+                                </h5>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                &nbsp;
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <button *ngIf="manageMode && !currentBatch.Archived" class="form-control btn btn-primary" type="button" (click)="doArchiveBatch()">Archive Batch</button>
+                    <button *ngIf="manageMode && currentBatch.Archived" class="form-control btn btn-primary" type="button" (click)="doArchiveBatch(true)">Restore Batch</button>
+                </div>
+                <div class="col-md-6">
+                    <button class="form-control btn btn-secondary" type="button" (click)="cancelArchiveBatch()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</dx-popup>

@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {DxButtonModule} from 'devextreme-angular';
+import { environment } from '../../../environments/environment';
 import { FileUploadLog, FileUploadService} from '../../_services/file-upload.service';
+import { FileUploadLogComponent } from '../file-upload-log/file-upload-log.component';
 
 @Component({
   selector: 'app-uploader',
@@ -9,28 +11,23 @@ import { FileUploadLog, FileUploadService} from '../../_services/file-upload.ser
   providers: [FileUploadService]
 })
 export class UploaderComponent implements OnInit {
+  @ViewChild(FileUploadLogComponent) fileUploadLog;
+  uploadURL = environment.baseURL + '/api/Upload';
   value: any[] = [];
-  uploadedFiles;
   clearButtonText = 'Clear Queue';
   uploadHeaders = {
     userid: 'rwflowers'
   };
 
-  constructor(public uploadService: FileUploadService) {
-
-    //  uploadService.getFileUploads('rwflowers').subscribe((res: Response) => this.uploadedFiles = res);
-    uploadService.getFileUploads('rwflowers').subscribe(res => {
-      this.uploadedFiles = res;
-      console.log(this.uploadedFiles);
-    });
-  }
+  constructor() {  }
 
   clearQueue() {
     this.value = [];
   }
 
   uploadComplete(e) {
-
+    console.log('Refreshing Log');
+    this.fileUploadLog.refreshLog();
   }
 
   ngOnInit() {

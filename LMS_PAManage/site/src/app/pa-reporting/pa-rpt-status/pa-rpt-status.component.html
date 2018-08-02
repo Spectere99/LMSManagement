@@ -1,0 +1,12 @@
+<dx-pie-chart id="pie" title="PA Request Status" [dataSource]="performanceData">
+  <dxo-size [width]="800" [height]="600"></dxo-size>
+  <dxo-legend orientation="horizontal" itemTextPosition="right" horizontalAlignment="right" verticalAlignment="bottom" [columnCount]="4"></dxo-legend>
+  <dxo-export [enabled]="true"></dxo-export>
+  <dxi-series argumentField="status" valueField="count">
+      <dxo-label [visible]="true" position="columns" [customizeText]="customizeLabel">
+          <dxo-font [size]="16"></dxo-font>
+          <dxo-connector [visible]="true" [width]="0.5"></dxo-connector>
+      </dxo-label>
+  </dxi-series>
+</dx-pie-chart>
+

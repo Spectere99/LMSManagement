@@ -1,0 +1,62 @@
+<div class="col-md-8">
+  <div class="row">
+      <div *ngIf="securityMessage" class="alert alert-danger">
+          {{securityMessage}}
+      </div>
+    <div *ngIf="!securityMessage" class="col-md-6">
+      <div class="col-md-3 dx-field-label">Lookup Type:</div>
+      <div class="col-md-5 float-left dx-field-value">
+        <dx-select-box [dataSource]="lookupTypes" displayExpr="Type" valueExpr="Id" [value]="lookupTypes.length > 0 ? lookupTypes[0].Id : null"
+          (onSelectionChanged)="loadLookups($event)"></dx-select-box>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="float-right dx-field-label">Record Count ({{lookups?.length}})</div>
+    </div>
+  </div>
+    <dx-data-grid id="gridContainer" [dataSource]="lookups" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+      (onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)" [height]="setHeight()" (onRowUpdating)="updateRecord($event)"
+      (onInitNewRow)="initRecord($event)" (onRowInserting)="addRecord($event)">
+      <!--     <dxo-filter-row 
+          [visible]="true"></dxo-filter-row> -->
+      <dxo-scrolling mode="infinite"></dxo-scrolling>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-export [enabled]="true" fileName="prescription_approvals" [allowExportSelectedData]="false"></dxo-export>
+      <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="LookupTypeId" caption="Lookup Type" dataType="number" [visible]="true">
+        <dxo-lookup [dataSource]="lookupTypes" valueExpr="Id" displayExpr="Type">
+        </dxo-lookup>
+      </dxi-column>
+      <dxi-column dataField="LookupValue" caption="Value" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="LastModifiedBy" caption="Last Modified By" dataType="string" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="Archived" caption="Archived?" dataType="boolean" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true">
+        <!-- <dxo-popup title="Edit" [showTitle]="false" [width]="900" [height]="545">
+      </dxo-popup>
+      <dxo-form colCount="2">
+        <dxi-item itemType="group" caption="General">
+          <dxi-item dataField="Submitted"></dxi-item>
+          <dxi-item dataField="DoctorName"></dxi-item>
+          <dxi-item dataField="PatientName"></dxi-item>
+          <dxi-item dataField="DrugName"></dxi-item>
+          <dxi-item dataField="CreatedBy"></dxi-item>
+        </dxi-item>
+        <dxi-item itemType="group" caption="Tracking Details">
+          <dxi-item dataField="AssignedTo"></dxi-item>
+          <dxi-item dataField="Status"></dxi-item>
+          <dxi-item dataField="InsuranceCompany_Id"></dxi-item>
+          <dxi-item dataField="Approval"></dxi-item>
+          <dxi-item dataField="Denial"></dxi-item>
+        </dxi-item>
+        <dxi-item [colSpan]="2" dataField="ApprovalDocumentUrl"></dxi-item>
+        <dxi-item [colSpan]="2" dataField="Notes"></dxi-item>
+      </dxo-form> -->
+      </dxo-editing>
+    </dx-data-grid>
+</div>

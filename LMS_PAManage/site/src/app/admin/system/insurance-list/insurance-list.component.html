@@ -1,0 +1,32 @@
+<div class="col-md-8">
+  <div class="row">
+      <div *ngIf="securityMessage" class="alert alert-danger">
+          {{securityMessage}}
+      </div>
+    <div class="col-md-4">
+      <div class="float-right dx-field-label">Record Count ({{insuranceCompanies?.length > 0 ? insuranceCompanies?.length : 0 }})</div>
+    </div>
+  </div>
+    <dx-data-grid id="gridContainer" [dataSource]="insuranceCompanies" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+      (onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)" [height]="setHeight()" (onRowUpdating)="updateRecord($event)"
+      (onInitNewRow)="initRecord($event)" (onRowInserting)="addRecord($event)">
+      <!--     <dxo-filter-row 
+          [visible]="true"></dxo-filter-row> -->
+      <dxo-scrolling mode="infinite"></dxo-scrolling>
+      <dxo-header-filter [visible]="true"></dxo-header-filter>
+      <dxo-search-panel [visible]="true" [width]="240" placeholder="Search..."></dxo-search-panel>
+      <dxo-column-chooser [enabled]="true"></dxo-column-chooser>
+      <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+      <dxo-export [enabled]="true" fileName="insurance_companies" [allowExportSelectedData]="false"></dxo-export>
+      <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="CompanyCode" caption="Company Code" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxi-column dataField="CompanyName" caption="Company Display Name" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="LastModifiedBy" caption="Last Modified By" dataType="string" [visible]="true" [allowEditing]="false"></dxi-column>
+      <dxi-column dataField="Archived" caption="Archived?" dataType="boolean" [visible]="true" [allowEditing]="true"></dxi-column>
+      <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true">
+      </dxo-editing>
+    </dx-data-grid>
+</div>
