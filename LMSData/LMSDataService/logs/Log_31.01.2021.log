@@ -1,0 +1,112 @@
+2021-01-31 18:29:53,997 [9] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:29:54,010 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:29:54,011 [10] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 18:29:54,015 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:30:38,352 [7] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:30:38,353 [7] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:30:38,356 [5] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:30:50,622 [5] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:30:50,624 [5] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:30:50,641 [6] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:30:50,642 [6] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:31:05,919 [9] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:31:05,925 [10] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 18:31:05,925 [8] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:31:05,927 [8] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:44:32,321 [28] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:44:32,324 [28] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:44:32,323 [22] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:44:37,852 [28] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:44:42,929 [33] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:44:45,247 [13] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 18:44:45,276 [28] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 18:44:45,277 [28] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 18:44:45,290 [26] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:08:31,149 [66] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:08:31,152 [66] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:08:31,160 [57] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:08:31,171 [54] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:14:29,164 [43] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:14:29,166 [43] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:14:29,164 [53] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:15:11,489 [37] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2021-01-31 20:15:11,490 [37] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2021-01-31 20:15:11,683 [37] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:16:32,557 [37] DEBUG LMSDataService.Controllers.UploadController - Executing call in debug mode 
+ 2021-01-31 20:16:32,559 [37] INFO LMSDataService.Controllers.UploadController - Handling Document Upload from user: rwflowers 
+ 2021-01-31 20:16:32,653 [53] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:17:14,210 [102] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:17:14,213 [102] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:17:14,245 [27] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:17:39,189 [41] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:17:39,195 [44] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:17:39,196 [44] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:17:39,222 [102] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:18:41,766 [27] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:18:41,768 [27] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:18:41,784 [44] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:18:54,019 [42] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:18:55,245 [103] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:18:59,199 [42] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:18:59,201 [42] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:18:59,205 [50] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:18:59,208 [56] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:19:12,837 [27] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:19:12,839 [27] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:19:12,857 [102] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:19:12,857 [102] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:19:32,098 [41] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:19:32,102 [49] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:19:32,102 [27] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:19:32,103 [27] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:27:58,291 [66] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:27:58,297 [67] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:27:58,298 [67] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: demo 
+ 2021-01-31 20:27:58,304 [84] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:28:18,232 [108] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:28:18,235 [84] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:28:18,331 [83] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:28:18,333 [83] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: lead 
+ 2021-01-31 20:35:10,726 [106] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:35:10,727 [106] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: lead 
+ 2021-01-31 20:35:10,754 [129] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:35:10,754 [129] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: lead 
+ 2021-01-31 20:35:17,280 [51] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:35:17,307 [51] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:35:17,307 [51] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: lead 
+ 2021-01-31 20:35:17,310 [61] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:36:03,398 [129] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:36:03,412 [101] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:36:03,441 [76] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:36:03,441 [76] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: demo 
+ 2021-01-31 20:36:53,931 [65] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:36:53,944 [70] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:36:53,970 [129] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:36:53,971 [129] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:37:42,622 [129] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:37:42,627 [65] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:37:42,628 [65] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:39:38,949 [129] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:40:18,390 [76] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:40:18,391 [129] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:40:18,393 [129] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:40:18,397 [65] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:41:46,789 [107] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:41:46,792 [107] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:41:46,794 [101] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:43:53,906 [97] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:43:53,908 [97] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:43:53,934 [97] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:43:53,935 [97] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:46:11,235 [86] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:46:11,289 [79] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:46:11,290 [79] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:46:11,294 [97] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 2021-01-31 20:47:33,139 [93] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:47:33,143 [87] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:47:33,143 [87] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:52:46,039 [42] DEBUG LMSDataService.Controllers.LookupTypesController - Executing in Debug Mode 
+ 2021-01-31 20:52:46,042 [42] INFO LMSDataService.Controllers.LookupTypesController - Handling GET request from user: admin 
+ 2021-01-31 20:52:46,041 [54] DEBUG LMSDataService.Controllers.FileUploadLogsController - Executing in Debug Mode 
+ 2021-01-31 20:52:46,041 [45] DEBUG LMSDataService.Controllers.InsuranceCompaniesController - Executing in Debug Mode 
+ 

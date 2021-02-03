@@ -63,7 +63,7 @@ onCellPrepared(e) {
     }
 }
 initRecord(e) {
-    console.log('Adding Record', this.selectedInsuranceCompany);
+    // console.log('Adding Record', this.selectedInsuranceCompany);
     const addRec: InsuranceCompany = {
         Id: 0,
         CompanyCode: '',
@@ -78,7 +78,7 @@ initRecord(e) {
 }
 
 addRecord(d) {
-    console.log('Adding Record', d);
+    // console.log('Adding Record', d);
     const updRec: InsuranceCompany = {
         Id: 0,
         CompanyCode: '',
@@ -104,7 +104,7 @@ addRecord(d) {
 }
 
 updateRecord(d) {
-    console.log('Saving Record', d);
+    // console.log('Saving Record', d);
     const updRec: InsuranceCompany = {
         Id: d.key.Id,
         CompanyCode: d.newData.CompanyCode === undefined ? d.oldData.CompanyCode : d.newData.CompanyCode,

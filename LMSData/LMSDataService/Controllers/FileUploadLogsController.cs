@@ -51,7 +51,7 @@ namespace LMSDataService.Controllers
                     }
                 }
 
-                var showArchived = false;
+                // var showArchived = false;
 
                 if (headers.Contains("showArchived"))
                 {

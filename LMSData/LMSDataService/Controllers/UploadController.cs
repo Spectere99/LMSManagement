@@ -40,7 +40,7 @@ namespace LMSDataService.Controllers
             }
 
             var headers = request.Headers;
-            bool showArchived = false;
+            //bool showArchived = false;
 
             //if (headers.Contains("showArchived"))
             //{

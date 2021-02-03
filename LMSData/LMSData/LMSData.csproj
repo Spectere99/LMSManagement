@@ -78,6 +78,8 @@
     <Compile Include="DBObjects\InsuranceCompany.cs" />
     <Compile Include="DBObjects\Lookup.cs" />
     <Compile Include="DBObjects\LookupType.cs" />
+    <Compile Include="DBObjects\PaRequestNote_Audit.cs" />
+    <Compile Include="DBObjects\PaRequestNote.cs" />
     <Compile Include="DBObjects\PaRequest.cs" />
     <Compile Include="DBObjects\PARequest_Audit.cs" />
     <Compile Include="DBObjects\Role.cs" />
@@ -133,6 +135,14 @@
     <Compile Include="Migrations\201806130128390_PaRequest_v1.2.Designer.cs">
       <DependentUpon>201806130128390_PaRequest_v1.2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102030023262_PaRequestNotes_v1.0.cs" />
+    <Compile Include="Migrations\202102030023262_PaRequestNotes_v1.0.Designer.cs">
+      <DependentUpon>202102030023262_PaRequestNotes_v1.0.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102030029270_PaRequestNotes_v1.1.cs" />
+    <Compile Include="Migrations\202102030029270_PaRequestNotes_v1.1.Designer.cs">
+      <DependentUpon>202102030029270_PaRequestNotes_v1.1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,8 +189,15 @@
     <EmbeddedResource Include="Migrations\201806130128390_PaRequest_v1.2.resx">
       <DependentUpon>201806130128390_PaRequest_v1.2.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030023262_PaRequestNotes_v1.0.resx">
+      <DependentUpon>202102030023262_PaRequestNotes_v1.0.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102030029270_PaRequestNotes_v1.1.resx">
+      <DependentUpon>202102030029270_PaRequestNotes_v1.1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DBScripts\PaRequestNote_aud_trigger_CREATE.sql" />
     <Content Include="DBScripts\PaRequest_aud_trigger_CREATE.sql" />
     <Content Include="DBScripts\UserLogins_aud_trigger_CREATE.sql" />
   </ItemGroup>

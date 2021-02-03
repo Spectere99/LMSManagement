@@ -17,7 +17,7 @@ export class PaRptUserStatusComponent implements OnInit {
   statusLookup;
   billingStatusLookup;
   paRequests;
-  users;
+  users: User[];
 
 
   constructor(private globals: Globals, public lookupService: LookupService,
@@ -27,12 +27,12 @@ export class PaRptUserStatusComponent implements OnInit {
       const requestLookupType = res.filter(p => p.Id === 3); // Pre seeded database for 'Pa_RequestStatus'
       if (requestLookupType.length > 0) {
         this.statusLookup = requestLookupType[0].Lookups;
-        console.log('statusLookup', this.statusLookup);
+        // console.log('statusLookup', this.statusLookup);
       }
       const billingLookupType = res.filter(p => p.Id === 4); // Pre seeded database for 'BillingStatus'
       if (billingLookupType.length > 0) {
         this.billingStatusLookup = billingLookupType[0].Lookups;
-        console.log('billingStatusLookup', this.billingStatusLookup);
+        // console.log('billingStatusLookup', this.billingStatusLookup);
       }
       userService.getUsers(globals.user.userName, false).subscribe(res2 => {
         // this.users = res2.filter(p => p.Archived === false);
@@ -52,7 +52,7 @@ export class PaRptUserStatusComponent implements OnInit {
     if (this.users) {
       this.users.forEach(user => {
         // console.log('calc: currentUser', user);
-        const usersPaData = this.paRequests.filter(p => p.AssignedTo === user.UserName);
+        const usersPaData = this.paRequests.filter(p => p.AssignedTo === user.Id.toString());
         // console.log('userPaData', usersPaData);
         if (this.statusLookup) {
           this.statusLookup.forEach(element => {
@@ -70,7 +70,7 @@ export class PaRptUserStatusComponent implements OnInit {
         }
       });
     }
-    console.log('userStatusData', this.userStatusData);
+    // console.log('userStatusData', this.userStatusData);
   }
   customizeTooltip(arg: any) {
     return {

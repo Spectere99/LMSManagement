@@ -26,7 +26,7 @@ export class UploaderComponent implements OnInit {
   }
 
   uploadComplete(e) {
-    console.log('Refreshing Log');
+    // console.log('Refreshing Log');
     this.fileUploadLog.refreshLog();
   }
 

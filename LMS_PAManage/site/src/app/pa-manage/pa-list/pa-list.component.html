@@ -6,7 +6,7 @@
     <div *ngIf="globals.isAdmin" class="col-md-9">
         <div class="col-md-1 dx-field-label">Batch:</div>
         <div class="col-md-2 float-left dx-field-value">
-          <dx-select-box [dataSource]="fileUploadLogs" displayExpr="BatchName" valueExpr="Id" [value]="fileUploadLogs !== undefined ? fileUploadLogs[0]?.Id : null" (onSelectionChanged)="pullBatchRequests($event)"></dx-select-box>
+          <dx-select-box [dataSource]="fileUploadLogs" displayExpr="BatchName" valueExpr="Id" [value]="currentBatchId" (onSelectionChanged)="onBatchRequestSelected($event)"></dx-select-box>
         </div>
     </div>
     <div *ngIf="!securityMessage" class="col-md-3">
@@ -49,7 +49,10 @@
     <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="FileUploadLogId" caption="BatchId" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="Submitted" caption="Date Submitted" dataType="date" [visible]="false" [allowEditing]="globals.isAdmin"></dxi-column>
-    <dxi-column dataField="AssignedTo" caption="Assigned To" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
+    <dxi-column dataField="AssignedTo" caption="Assigned To" dataType="number" [visible]="true" [allowEditing]="globals.isAdmin">
+      <dxo-lookup [dataSource]="users" valueExpr="Id" displayExpr="UserName">
+      </dxo-lookup>
+    </dxi-column>
     <dxi-column dataField="RequestReassign" caption="Reassign" dataType="boolean" [visible]="true"></dxi-column>
     <dxi-column dataField="DoctorName" caption="Physician" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>
     <dxi-column dataField="PatientName" caption="Patient" dataType="string" [visible]="true" [allowEditing]="globals.isAdmin"></dxi-column>

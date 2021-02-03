@@ -26,7 +26,7 @@ selectedLookupType: LookupType;
   }
 
   loadLookups(e) {
-    console.log(e.selectedItem);
+    // console.log(e.selectedItem);
     this.selectedLookupType = e.selectedItem;
     this.lookups = e.selectedItem.Lookups;
   }
@@ -68,7 +68,7 @@ onCellPrepared(e) {
     }
 }
 initRecord(e) {
-    console.log('Adding Record', this.selectedLookupType);
+    // console.log('Adding Record', this.selectedLookupType);
     const addRec: LookupItem = {
         Id: 0,
         LookupTypeId: this.selectedLookupType.Id,
@@ -83,7 +83,7 @@ initRecord(e) {
 }
 
 addRecord(d) {
-    console.log('Adding Record', d);
+    // console.log('Adding Record', d);
     const updRec: LookupItem = {
         Id: 0,
         LookupTypeId: d.data.LookupTypeId,
@@ -109,7 +109,7 @@ addRecord(d) {
 }
 
 updateRecord(d) {
-    console.log('Saving Record', d);
+    // console.log('Saving Record', d);
     const updRec: LookupItem = {
         Id: d.key.Id,
         LookupTypeId: d.newData.LookupTypeId === undefined ? d.oldData.LookupTypeId : d.newData.LookupTypeId,

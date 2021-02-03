@@ -51,11 +51,11 @@ export class PaRequestService {
         const headers = new Headers({ 'Accept': 'application/json' });
         const token = JSON.parse(this._authService.getUserToken());
         headers.append('Content-Type', 'application/json; charset=UTF-8');
-        console.log('User Token', token);
+        // console.log('User Token', token);
         headers.append('token', token.token);
         if (queryHeaders) {
             queryHeaders.forEach((qry) => {
-                console.log('queryHeaders', qry);
+                // console.log('queryHeaders', qry);
                 headers.append(qry.key, qry.value);
             });
         }
@@ -87,7 +87,7 @@ export class PaRequestService {
     }
 
     getUsersBatchPaRequests(userId, assignedTo: string): Observable<any> {
-        console.log('getUsersBatchPaRequests');
+        // console.log('getUsersBatchPaRequests');
         const queryHeaders = [
         {
             key: 'AssignedTo',
@@ -106,7 +106,7 @@ export class PaRequestService {
             return this.http.post(this.baseURL + this._ACTION, paRequest, { headers: this.getHeaders(undefined) })
             .pipe(map(res => res.json()));
         } else {  // Update
-            console.log('updating request record', paRequest);
+            // console.log('updating request record', paRequest);
             return this.http.put(this.baseURL + this._ACTION + '/' + paRequest.Id, paRequest,
                                 { headers: this.getHeaders(undefined) })
             .pipe(map(res => res.json()));

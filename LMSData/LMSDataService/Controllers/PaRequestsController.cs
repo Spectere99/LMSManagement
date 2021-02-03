@@ -46,7 +46,9 @@ namespace LMSDataService.Controllers
 
                     if (headers.Contains("Id"))
                     {
-                        var id = int.Parse(headers.GetValues("Id").First());
+
+                        var id = 0;
+                        int.TryParse(headers.GetValues("Id").First(), out id);
                         IQueryable<PaRequest> filteredResults = db.PaRequests.Where(p => p.FileUploadLogId == id).Include(t => t.FileUploadLog);
 
                         if (headers.Contains("AssignedTo"))

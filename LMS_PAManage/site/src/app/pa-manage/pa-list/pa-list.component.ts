@@ -36,7 +36,9 @@ export class PaListComponent implements OnInit {
     billingStatusLookup: LookupItem[] = [];
     selectedItemKeys: any[] = [];
     users: User[] = [];
-    selectedUser: User;
+    selectedUser: any;
+    currentBatch: any;
+    currentBatchId: any;
 
     // Row Color Constants
     _PRIORITY_ROW_COLOR = 'tan';
@@ -57,8 +59,22 @@ export class PaListComponent implements OnInit {
         if (!globals.isAdmin) {
             this.pullAssignedRequests();
         }
+
+        // console.log('const: currentBatch', this.currentBatch);
         fileUploadService.getFileUploads(globals.user.userName, false).subscribe(res => {
             this.fileUploadLogs = res;
+            // console.log('const: fileUploadLogs', this.fileUploadLogs);
+            // console.log('const: session Batch number', sessionStorage.getItem('currentBatch'));
+            // console.log('const: batch to Load', this.fileUploadLogs.filter
+            //    (x => x.Id === parseInt(sessionStorage.getItem('currentBatch'), 0)));
+            this.currentBatch = this.fileUploadLogs.filter(x => x.Id === parseInt(sessionStorage.getItem('currentBatch'), 0));
+
+            if (this.currentBatch !== undefined) {
+                // console.log('pulling batch Requests', this.currentBatch);
+                this.currentBatchId = parseInt(sessionStorage.getItem('currentBatch'), 0);
+                this.pullBatchRequests(parseInt(sessionStorage.getItem('currentBatch'), 0));
+            }
+
         });
         lookupService.getLookupTypes(globals.user.userName).subscribe(res => {
             const requestLookupType = res.filter(p => p.Id === 3); // Pre seeded database for 'Pa_RequestStatus'
@@ -68,7 +84,7 @@ export class PaListComponent implements OnInit {
             const billingLookupType = res.filter(p => p.Id === 4); // Pre seeded database for 'BillingStatus'
             if (billingLookupType.length > 0) {
                 this.billingStatusLookup = billingLookupType[0].Lookups;
-                console.log(this.billingStatusLookup);
+                // console.log(this.billingStatusLookup);
             }
         });
         insuranceCompanyService.getInsuranceCompanies(globals.user.userName).subscribe(res => {
@@ -87,8 +103,8 @@ export class PaListComponent implements OnInit {
 
     selectionChanged(data: any) {
         this.selectedItemKeys = data.selectedRowKeys;
-        // console.log(this.selectedItemKeys);
     }
+
     setHeight() {
         return window.innerHeight - (window.innerHeight * .30);
     }
@@ -110,9 +126,15 @@ export class PaListComponent implements OnInit {
                 }
             });
     }
-    pullBatchRequests(e) {
+    onBatchRequestSelected(e) {
+        sessionStorage.setItem('currentBatch', e.selectedItem.Id);
+        // console.log('onBatchRequestSelected', e.selectedItem.Id);
+        this.currentBatchId = parseInt(sessionStorage.getItem('currentBatch'), 0);
+        this.pullBatchRequests(e.selectedItem.Id);
+    }
+    pullBatchRequests(batchId) {
         if (!this.globals.isAdmin) {
-            console.log('pullBatchRequests', this.globals.isAdmin);
+            // console.log('pullBatchRequests', this.globals.isAdmin);
             this.paRequestService.getUsersBatchPaRequests(this.globals.user.userName, this.globals.user.userName)
                 .subscribe(res => {
                     this.paRequests = res;
@@ -129,7 +151,8 @@ export class PaListComponent implements OnInit {
                     }
                 });
         } else {
-            this.paRequestService.getBatchPaRequests(this.globals.user.userName, e.selectedItem.Id)
+            // console.log('pullBatchRequests', this.globals.isAdmin, batchId);
+            this.paRequestService.getBatchPaRequests(this.globals.user.userName, batchId)
                 .subscribe(res => {
                     this.paRequests = res;
                     // console.log(this.paRequests);
@@ -147,10 +170,13 @@ export class PaListComponent implements OnInit {
         }
     }
     batchAssign(e) {
-        console.log(this.selectedItemKeys);
+        // console.log('Selected Item Keys:', this.selectedItemKeys);
+        // console.log('Selected User:', this.selectedUser);
+        // console.log('Users:', this.users);
+        const selectedUserObject = this.getUserByUserName(this.selectedUser);
         this.selectedItemKeys.forEach(item => {
-            console.log('Item to Batch Set', item);
-            item.AssignedTo = this.selectedUser;
+            // console.log('Item to Batch Set', item);
+            item.AssignedTo = selectedUserObject === undefined ? item.AssignedTo : selectedUserObject.Id ;
             item.Assigned = new Date().toISOString();
             item.Status = 3;  // System Set for 'Assigned' status
             this.paRequestService.savePaRequest(this.globals.user.userName, item)
@@ -168,17 +194,26 @@ export class PaListComponent implements OnInit {
                 });
         });
         this.dataGrid.instance.clearSelection();
-        console.log(this.selectedItemKeys);
+        // console.log(this.selectedItemKeys);
+    }
+
+    getUserByUserName(userName: string) {
+        const user = this.users.filter(x => x.UserName === userName)[0];
+        if (user != null) {
+            return user;
+        } else {
+            return null;
+        }
     }
     onRowPrepared(e) {
         // console.log(e);
         if (e.rowType === 'data') {
             if (e.data.Completed) {
-                console.log(e);
+                // console.log(e);
                 e.rowElement.style.color = this._COMPLETED_ROW_TEXT;
             }
             if (e.data.Priority === true) {
-                console.log('Priority', e.data.Priority);
+                // console.log('Priority', e.data.Priority);
                 e.rowElement.bgColor = this._PRIORITY_ROW_COLOR;
             }
             switch (e.data.Status) {
@@ -252,7 +287,7 @@ export class PaListComponent implements OnInit {
     }
 
     initRecord(e) {
-        console.log('InitRecord', this.insuranceLookup);
+        // console.log('InitRecord', this.insuranceLookup);
         const addRec: PaRequest = {
             Id: 0,
             FileUploadLogId: 1,
@@ -286,7 +321,7 @@ export class PaListComponent implements OnInit {
     }
 
     addRecord(d) {
-        console.log('Adding Record', d);
+        // console.log('Adding Record', d);
         let completedDate = null;
         // See if the update contians a completed record change.
         if (d.data.Completed && d.data.Completed === true) {
@@ -325,7 +360,7 @@ export class PaListComponent implements OnInit {
             AutomobileRelated: d.data.AutomobileRelated === undefined ? false : d.data.AutomobileRelated,
             NonMeds: d.data.NonMeds === undefined ? false : d.data.NonMeds,
         };
-        
+
         this.paRequestService.savePaRequest(this.globals.user.userName, newRec)
             .subscribe(res => {
             }, (error) => {
@@ -342,7 +377,7 @@ export class PaListComponent implements OnInit {
     }
 
     updateRecord(d) {
-        console.log('Saving Record', d);
+        // console.log('Saving Record', d);
         let completedDate = null;
         // See if the update contians a completed record change.
         if (d.newData.Completed && d.newData.Completed === true) {
@@ -400,6 +435,7 @@ export class PaListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentBatchId = parseInt(sessionStorage.getItem('currentBatch'), 0);
     }
 
 }

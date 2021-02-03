@@ -28,7 +28,7 @@ export class InsuranceCompanyService {
         headers.append('userid', userId);
         if (queryHeaders) {
             queryHeaders.forEach((qry) => {
-                console.log('queryHeaders', qry);
+                // console.log('queryHeaders', qry);
                 headers.append(qry.key, qry.value);
             });
         }

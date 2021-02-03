@@ -16,13 +16,10 @@ F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\Microsoft.IdentityModel.Tokens.x
 F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\Newtonsoft.Json.xml
 F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\System.IdentityModel.Tokens.Jwt.pdb
 F:\Code\LMSManagement\LMSData\LMSData\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csprojAssemblyReference.cache
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.initial.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Version01.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v10.resources
-F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csproj.GenerateResource.Cache
-F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.dll
-F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.pdb
-F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csprojResolveAssemblyReference.cache
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v11.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v12.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.Security_v13.resources
@@ -32,3 +29,10 @@ F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.User_v15.res
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.FileUploadLogs_v16.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v11.resources
 F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequest_v12.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequestNotes_v10.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.Migrations.PaRequestNotes_v11.resources
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csproj.GenerateResource.cache
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csproj.CoreCompileInputs.cache
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LMSData.csproj.CopyComplete
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.dll
+F:\Code\LMSManagement\LMSData\LMSData\obj\Debug\LIMSData.pdb

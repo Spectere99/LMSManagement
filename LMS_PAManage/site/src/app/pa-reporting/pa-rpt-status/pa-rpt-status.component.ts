@@ -26,12 +26,12 @@ billingStatistics: BatchStatistic[];
       const requestLookupType = res.filter(p => p.Id === 3); // Pre seeded database for 'Pa_RequestStatus'
       if (requestLookupType.length > 0) {
         this.statusLookup = requestLookupType[0].Lookups;
-        console.log('statusLookup', this.statusLookup);
+        // console.log('statusLookup', this.statusLookup);
       }
       const billingLookupType = res.filter(p => p.Id === 4); // Pre seeded database for 'BillingStatus'
       if (billingLookupType.length > 0) {
         this.billingStatusLookup = billingLookupType[0].Lookups;
-        console.log('billingStatusLookup', this.billingStatusLookup);
+        // console.log('billingStatusLookup', this.billingStatusLookup);
       }
       paRequestService.getPaRequests(globals.user.userName).subscribe(res2 => {
         this.paRequests = res2;
@@ -81,8 +81,8 @@ calculateStatistics() {
       this.billingStatistics.push(newBatchStat);
     });
   } */
-  console.log('Loaded Statistics', this.performanceData);
-  console.log('Billing Statistics', this.billingStatistics);
+  // console.log('Loaded Statistics', this.performanceData);
+  // console.log('Billing Statistics', this.billingStatistics);
 }
   ngOnInit() {
   }

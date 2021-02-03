@@ -14,10 +14,10 @@ namespace LIMSData
         public DbSet<User> Users { get; set; }
         public DbSet<UserLogin> UserLogins { get; set; }
         public DbSet<Role> Roles { get; set; }
-
         public DbSet<PaRequestAudit> PaRequestAudits { get; set; }
         public DbSet<UserLoginAudit> UserLoginAudits { get; set; }
-
+        public DbSet<PaRequestNote> PaRequestNotes { get; set; }
+        public DbSet<PaRequestNoteAudit> PaRequestNoteAudits { get; set; }
         public LMSDataDBContext() : base("name=LMSDataDBContext")
         {
 

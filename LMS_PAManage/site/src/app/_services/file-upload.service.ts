@@ -32,11 +32,11 @@ export class FileUploadService {
         const headers = new Headers({ 'Accept': 'application/json' });
         const token = JSON.parse(this._authService.getUserToken());
         headers.append('Content-Type', 'application/json; charset=UTF-8');
-        console.log('User Token', token);
+        // console.log('User Token', token);
         headers.append('token', token.token);
         if (queryHeaders) {
             queryHeaders.forEach((qry) => {
-                console.log('queryHeaders', qry);
+                // console.log('queryHeaders', qry);
                 headers.append(qry.key, qry.value);
             });
         }
@@ -87,7 +87,7 @@ export class FileUploadService {
             return this.http.post(this.baseURL + this._ACTION, fileUpload, { headers: this.getHeaders(undefined) })
             .pipe(map(res => res.json()));
         } else {  // Update
-            console.log('updating fileUpload record', fileUpload);
+            // console.log('updating fileUpload record', fileUpload);
             return this.http.put(this.baseURL + this._ACTION + '/' + fileUpload.Id, fileUpload,
                                 { headers: this.getHeaders(undefined) })
             .pipe(map(res => res.json()));

@@ -38,18 +38,18 @@ export class FileUploadLogComponent implements OnInit {
       const requestLookupType = res.filter(p => p.Id === 3); // Pre seeded database for 'Pa_RequestStatus'
       if (requestLookupType.length > 0) {
         this.statusLookup = requestLookupType[0].Lookups;
-        console.log('statusLookup', this.statusLookup);
+        // console.log('statusLookup', this.statusLookup);
       }
       const billingLookupType = res.filter(p => p.Id === 4); // Pre seeded database for 'BillingStatus'
       if (billingLookupType.length > 0) {
         this.billingStatusLookup = billingLookupType[0].Lookups;
-        console.log('billingStatusLookup', this.billingStatusLookup);
+        // console.log('billingStatusLookup', this.billingStatusLookup);
       }
     });
     if (!this.manageMode) {
       uploadService.getFileUploads(this.globals.user.userName, true).subscribe(res => {
         this.uploadedFiles = res;
-        console.log('Uploaded Files', this.uploadedFiles);
+        // console.log('Uploaded Files', this.uploadedFiles);
       });
     } else {
       uploadService.getTodayFileUploads(this.globals.user.userName, false).subscribe(res => {
@@ -71,22 +71,22 @@ export class FileUploadLogComponent implements OnInit {
   }
 
   onRowPrepared(e) {
-    console.log('RowPrepared', e);
+    // console.log('RowPrepared', e);
     if (e.rowType === 'data') {
         if (e.data.Archived) {
-            console.log(e);
+            // console.log(e);
             e.rowElement.style.color = 'lightgrey';
         }
     }
 }
 
   showDetails(fileUploadLog) {
-    console.log('showDetails', fileUploadLog);
+    // console.log('showDetails', fileUploadLog);
     this.batchDetailTitle = 'Batch '.concat(fileUploadLog.BatchName, ' Details', fileUploadLog.Archived ? '(Archived)' : '');
     this.currentBatch = fileUploadLog;
     this.loadBatchFiles(this.currentBatch.Id).subscribe(res => {
       this.paRequests = res;
-      console.log('Loaded Batch Requests', this.paRequests);
+      // console.log('Loaded Batch Requests', this.paRequests);
       this.calculateStatistics();
       this.showPopup = true;
     });
@@ -95,7 +95,7 @@ export class FileUploadLogComponent implements OnInit {
   loadBatchFiles(id: number) {
     return this.paRequestService.getBatchPaRequests(this.globals.user.userName, id)
       .pipe(map(res => {
-        console.log('Return from getBatchPaRequests', res);
+        // console.log('Return from getBatchPaRequests', res);
         return res;
         // console.log(this.paRequests);
       }, (error) => {
@@ -145,8 +145,8 @@ export class FileUploadLogComponent implements OnInit {
         this.billingStatistics.push(newBatchStat);
       });
     }
-    console.log('Loaded Statistics', this.batchStatistics);
-    console.log('Billing Statistics', this.billingStatistics);
+    // console.log('Loaded Statistics', this.batchStatistics);
+    // console.log('Billing Statistics', this.billingStatistics);
   }
 
   doArchiveBatch(restore: boolean = false) {
@@ -156,7 +156,7 @@ export class FileUploadLogComponent implements OnInit {
     });
     this.currentBatch.Archived = !restore;
     this.uploadService.saveFileUpload(this.globals.user.userName, this.currentBatch).subscribe(res => {
-        console.log('doArchiveBatch:Success!', res);
+        // console.log('doArchiveBatch:Success!', res);
     }, (error) => {
       if (error.status === 401) {
         this.securityMessage = error._body;

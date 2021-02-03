@@ -18,17 +18,17 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('canActiviate', next);
+    // console.log('canActiviate', next);
     return this.performCheck(next, state);
   }
 
   private performCheck(next: ActivatedRouteSnapshot,
                        state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
 
-    console.log('performCheck', this._authService.isAuthenticated());
+    // console.log('performCheck', this._authService.isAuthenticated());
     if (this._authService.isAuthenticated()) {
         const userToken = this._authService.getDecodedUserToken();
-        console.log('logged in User Token', userToken);
+        // console.log('logged in User Token', userToken);
         this.globals.isAdmin = userToken.isAdmin;
         this.globals.user.userId = userToken.userLoginId;
         this.globals.user.userName = userToken.unique_name;

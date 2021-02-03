@@ -52,7 +52,7 @@ export class UserListComponent implements OnInit {
 
         this.roleService.getRoles(this.globals.user.userName).subscribe(res => {
             this.roleList = res;
-            console.log('RoleTypes', this.roleList);
+            // console.log('RoleTypes', this.roleList);
         });
     }
 
@@ -82,10 +82,10 @@ export class UserListComponent implements OnInit {
             Login: this.selectedUser.UserLogin.Login,
             Password: this.newPasswordValue
         };
-        console.log('userLoginCreation', userLoginCreation);
+        // console.log('userLoginCreation', userLoginCreation);
 
         this.userLoginService.saveUserLoginCreation(this.globals.user.userName, userLoginCreation).subscribe(res2 => {
-            console.log('return from saveUserLoginCreation', res2);
+            // console.log('return from saveUserLoginCreation', res2);
             this.selectedUser.UserLogin = res2;
             notify('Password Reset', 'success', 1000);
             this.passwordReset = false;
@@ -129,28 +129,28 @@ export class UserListComponent implements OnInit {
     onRowPrepared(e) {
         if (e.rowType === 'data') {
             if (e.data.UserLogin.LockoutEnabled) {
-                console.log(e);
+                // console.log(e);
                 e.rowElement.style.color = 'red';
             }
         }
     }
     onRowClick(e) {
-        console.log('Row Click', e);
+        // console.log('Row Click', e);
         this.selectedUser = Object.assign({}, e.data);
-        console.log('Selected User', this.selectedUser);
+        // console.log('Selected User', this.selectedUser);
         this.editing = true;
         this.newUser = false;
-        console.log('editing Existing User (newUser / passwordFormGroup.value)', this.newUser, this.passwordFormGroup.valid);
+        // console.log('editing Existing User (newUser / passwordFormGroup.value)', this.newUser, this.passwordFormGroup.valid);
     }
     onRoleChange(e) {
-        console.log('onRoleChange', e);
+        // console.log('onRoleChange', e);
         this.selectedUser.RoleId = e;
         const selectedRole = this.roleList.filter(p => p.Id === e);
         if (selectedRole && selectedRole.length > 0) {
             this.selectedUser.Role = selectedRole[0];
             this.selectedUser.UserLogin.IsAdmin = this.selectedUser.RoleId === 1 || this.selectedUser.RoleId === 2;
         }
-        console.log('onRoleChange:SelectedUser', this.selectedUser);
+        // console.log('onRoleChange:SelectedUser', this.selectedUser);
     }
 
     initRecord(e) {
@@ -190,11 +190,11 @@ export class UserListComponent implements OnInit {
         this.editing = true;
         this.newUser = true;
         this.selectedUser = addRec;
-        console.log('Init Record', this.selectedUser);
+        // console.log('Init Record', this.selectedUser);
     }
 
     addRecord(d) {
-        console.log('Adding Record', d);
+        // console.log('Adding Record', d);
         const updRec: User = {
             Id: 0,
             UserName: d.data.UserName,
@@ -242,20 +242,20 @@ export class UserListComponent implements OnInit {
     }
 
     udpateRecord() {
-        console.log('Saving Record', this.selectedUser);
+        // console.log('Saving Record', this.selectedUser);
         this.selectedUser.UserLogin.Login = this.selectedUser.UserName;
         this.userService.saveUser(this.globals.user.userName, this.selectedUser).subscribe(res => {
-            console.log('Return from saveUser', res);
+            // console.log('Return from saveUser', res);
             const userLoginCreation: UserLoginCreation = {
                 Id: res.UserLogin.Id,
                 IsAdmin: res.UserLogin.IsAdmin,
                 Login: res.UserLogin.Login,
                 Password: this.passwordFormGroup.get('password').value
             };
-            console.log('userLoginCreation', userLoginCreation);
+            // console.log('userLoginCreation', userLoginCreation);
 
             this.userLoginService.saveUserLoginCreation(this.globals.user.userName, userLoginCreation).subscribe(res2 => {
-                console.log('return from saveUserLoginCreation', res2);
+                // console.log('return from saveUserLoginCreation', res2);
                 this.selectedUser.UserLogin = res2;
                 this.editing = false;
                 this.newUser = false;
@@ -278,7 +278,7 @@ export class UserListComponent implements OnInit {
         });
     }
     updateRecord(d) {
-        console.log('Saving Record(d)', d);
+        // console.log('Saving Record(d)', d);
         const updRec: User = {
             Id: d.key.Id,
             UserName: d.newData.UserName === undefined ? d.oldData.UserName : d.newData.UserName,

@@ -31,7 +31,7 @@ export class RoleService {
         // headers.append('token', token.token);
         if (queryHeaders) {
             queryHeaders.forEach((qry) => {
-                console.log('queryHeaders', qry);
+                // console.log('queryHeaders', qry);
                 headers.append(qry.key, qry.value);
             });
         }
