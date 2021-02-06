@@ -1,7 +1,3 @@
-F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csprojAssemblyReference.cache
-F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.Resource.resources
-F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.GenerateResource.cache
-F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.CoreCompileInputs.cache
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\ApplicationInsights.config
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\roslyn\csc.exe
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -110,6 +106,10 @@ F:\Code\LMSManagement\LMSData\LMSDataService\bin\Microsoft.Owin.Security.Google.
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\Microsoft.Owin.Security.Twitter.xml
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 F:\Code\LMSManagement\LMSData\LMSDataService\bin\System.Web.Http.Owin.xml
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csprojAssemblyReference.cache
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.Resource.resources
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.GenerateResource.cache
+F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.CoreCompileInputs.cache
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.csproj.CopyComplete
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.dll
 F:\Code\LMSManagement\LMSData\LMSDataService\obj\Debug\LMSDataService.pdb

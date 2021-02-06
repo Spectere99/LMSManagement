@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
 import {
     DxSelectBoxModule,
     DxDataGridModule,
-    DxDataGridComponent
+    DxDataGridComponent,
+    DxLoadPanelModule
 } from 'devextreme-angular';
 // import 'devextreme/integration/jquery';
 // import { PrescriptionAuthorization, PAAuthService } from '../../_services/pa.service';
@@ -15,6 +16,7 @@ import { LookupItem, LookupType, LookupService } from '../../_services/lookup.se
 import { InsuranceCompany, InsuranceCompanyService } from '../../_services/insurance-company.service';
 import { User, UserService } from '../../_services/user.service';
 import { CompileNgModuleMetadata } from '@angular/compiler';
+import { PaNotesDetailComponent } from '../pa-notes-detail/pa-notes-detail.component';
 
 @Component({
     selector: 'app-pa-list',
@@ -27,9 +29,11 @@ import { CompileNgModuleMetadata } from '@angular/compiler';
         UserService]
 })
 export class PaListComponent implements OnInit {
-    @ViewChild(DxDataGridComponent) dataGrid: DxDataGridComponent;
+    @ViewChildren(DxDataGridComponent) dataGrid: DxDataGridComponent;
+    loadingVisible = false;
     securityMessage = '';
     paRequests: PaRequest[] = [];
+    currentPaRequestID: number;
     fileUploadLogs: FileUploadLog[] = [];
     insuranceLookup: InsuranceCompany[] = [];
     statusLookup: LookupItem[] = [];
@@ -56,6 +60,7 @@ export class PaListComponent implements OnInit {
         public insuranceCompanyService: InsuranceCompanyService, public userService: UserService,
         private el: ElementRef) {
 
+        this.loadingVisible = true;
         if (!globals.isAdmin) {
             this.pullAssignedRequests();
         }
@@ -110,11 +115,12 @@ export class PaListComponent implements OnInit {
     }
 
     pullAssignedRequests() {
-        this.paRequestService.getUsersBatchPaRequests(this.globals.user.userName, this.globals.user.userName)
+        this.paRequestService.getUsersBatchPaRequests(this.globals.user.userName, this.globals.user.userId)
             .subscribe(res => {
                 this.paRequests = res;
+                this.loadingVisible = false;
                 // console.log(this.paRequests);
-            }, (error) => {
+            }, (error) => { 
                 if (error.status === 401) {
                     this.securityMessage = error._body;
                     console.error('Pa-list:pullBatchRequests (auth error)', error);
@@ -135,9 +141,10 @@ export class PaListComponent implements OnInit {
     pullBatchRequests(batchId) {
         if (!this.globals.isAdmin) {
             // console.log('pullBatchRequests', this.globals.isAdmin);
-            this.paRequestService.getUsersBatchPaRequests(this.globals.user.userName, this.globals.user.userName)
+            this.paRequestService.getUsersBatchPaRequests(this.globals.user.userName, this.globals.user.userId)
                 .subscribe(res => {
                     this.paRequests = res;
+                    this.loadingVisible = false;
                     // console.log(this.paRequests);
                 }, (error) => {
                     if (error.status === 401) {
@@ -153,7 +160,7 @@ export class PaListComponent implements OnInit {
         } else {
             // console.log('pullBatchRequests', this.globals.isAdmin, batchId);
             this.paRequestService.getBatchPaRequests(this.globals.user.userName, batchId)
-                .subscribe(res => {
+                .subscribe(res => { this.loadingVisible = false;
                     this.paRequests = res;
                     // console.log(this.paRequests);
                 }, (error) => {
@@ -176,11 +183,12 @@ export class PaListComponent implements OnInit {
         const selectedUserObject = this.getUserByUserName(this.selectedUser);
         this.selectedItemKeys.forEach(item => {
             // console.log('Item to Batch Set', item);
-            item.AssignedTo = selectedUserObject === undefined ? item.AssignedTo : selectedUserObject.Id ;
+            // item.AssignedTo = selectedUserObject === undefined ? item.AssignedTo : selectedUserObject.UserName ;
+            item.AssignedToId = selectedUserObject === undefined ? item.AssignedToId : selectedUserObject.UserLoginId;
             item.Assigned = new Date().toISOString();
             item.Status = 3;  // System Set for 'Assigned' status
             this.paRequestService.savePaRequest(this.globals.user.userName, item)
-                .subscribe(res => {
+                .subscribe(res => { this.loadingVisible = false;
                 }, (error) => {
                     if (error.status === 401) {
                         this.securityMessage = error._body;
@@ -286,6 +294,12 @@ export class PaListComponent implements OnInit {
         }
     }
 
+    onEditingStart(e: any) {
+        // console.log('onEditingStart', e);
+        this.currentPaRequestID = e.data.Id;
+        // console.log('currentPaRequest', this.currentPaRequestID);
+    }
+
     initRecord(e) {
         // console.log('InitRecord', this.insuranceLookup);
         const addRec: PaRequest = {
@@ -295,7 +309,8 @@ export class PaListComponent implements OnInit {
             ApprovalDocumentUrl: null,
             Archived: false,
             Assigned: null,
-            AssignedTo: null,
+            // AssignedTo: null,
+            AssignedToId: null,
             Created: new Date().toISOString(),
             CreatedBy: this.globals.user.userName,
             Denial: null,
@@ -336,7 +351,8 @@ export class PaListComponent implements OnInit {
                 : d.data.ApprovalDocumentUrl,
             Archived: d.data.Archived === undefined ? false : d.data.Archived,
             Assigned: d.data.Assigned === undefined ? null : new Date().toISOString(),
-            AssignedTo: d.data.AssignedTo === undefined ? null : d.data.AssignedTo,
+            // AssignedTo: d.data.Assigned === undefined ? null : d.data.Assigned,
+            AssignedToId: d.data.AssignedToId === undefined ? null : d.data.AssignedToId,
             Created: d.data.Created === undefined ? new Date().toISOString() : d.data.Created,
             CreatedBy: d.data.CreatedBy === undefined ? this.globals.user.userName : d.data.CreatedBy,
             Denial: d.data.Denial === undefined ? null : d.data.Denial,
@@ -362,8 +378,8 @@ export class PaListComponent implements OnInit {
         };
 
         this.paRequestService.savePaRequest(this.globals.user.userName, newRec)
-            .subscribe(res => {
-            }, (error) => {
+            .subscribe(res => { this.loadingVisible = false;
+            }, (error) => { this.loadingVisible = false;
                 if (error.status === 401) {
                     this.securityMessage = error._body;
                     console.error('Pa-list:updateRecord (auth error)', error);
@@ -378,6 +394,7 @@ export class PaListComponent implements OnInit {
 
     updateRecord(d) {
         // console.log('Saving Record', d);
+        this.loadingVisible = true;
         let completedDate = null;
         // See if the update contians a completed record change.
         if (d.newData.Completed && d.newData.Completed === true) {
@@ -392,7 +409,8 @@ export class PaListComponent implements OnInit {
                 : d.newData.ApprovalDocumentUrl,
             Archived: d.newData.Archived === undefined ? d.oldData.Archived : d.newData.Archived,
             Assigned: d.newData.AssignedTo === d.oldData.AssignedTo ? d.oldData.Assigned : new Date().toISOString(),
-            AssignedTo: d.newData.AssignedTo === undefined ? d.oldData.AssignedTo : d.newData.AssignedTo,
+            // AssignedTo: d.newData.AssignedTo === undefined ? d.oldData.AssignedTo : d.newData.AssignedTo,
+            AssignedToId: d.newData.AssignedToId === undefined ? d.oldData.AssignedToId : d.newData.AssignedToId,
             Created: d.newData.Created === undefined ? d.oldData.Created : d.newData.Created,
             CreatedBy: d.newData.CreatedBy === undefined ? d.oldData.CreatedBy : d.newData.CreatedBy,
             Denial: d.newData.Denial === undefined ? d.oldData.Denial : d.newData.Denial,
@@ -420,7 +438,7 @@ export class PaListComponent implements OnInit {
         // console.log('updRec', updRec);
 
         this.paRequestService.savePaRequest(this.globals.user.userName, updRec)
-            .subscribe(res => {
+            .subscribe(res => { this.loadingVisible = false;
             }, (error) => {
                 if (error.status === 401) {
                     this.securityMessage = error._body;
@@ -435,6 +453,7 @@ export class PaListComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadingVisible = true;
         this.currentBatchId = parseInt(sessionStorage.getItem('currentBatch'), 0);
     }
 

@@ -39,6 +39,7 @@ import { UserLoginListComponent } from './admin/user-security/user-login-list/us
 import { BatchManageComponent } from './admin/batch-manage/batch-manage.component';
 import { PaRptStatusComponent } from './pa-reporting/pa-rpt-status/pa-rpt-status.component';
 import { PaRptUserStatusComponent } from './pa-reporting/pa-rpt-user-status/pa-rpt-user-status.component';
+import { PaNotesDetailComponent } from './pa-manage/pa-notes-detail/pa-notes-detail.component';
 
 const appRoutes: Routes = [
   { path: 'Login', component: LoginComponent },
@@ -74,7 +75,8 @@ const appRoutes: Routes = [
     PhoneFormat,
     BatchManageComponent,
     PaRptStatusComponent,
-    PaRptUserStatusComponent
+    PaRptUserStatusComponent,
+    PaNotesDetailComponent
   ],
   imports: [NgbModule.forRoot(),
             RouterModule.forRoot(appRoutes), // , { enableTracing: true }),

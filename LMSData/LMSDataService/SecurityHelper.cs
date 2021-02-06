@@ -6,8 +6,8 @@ using System.Web;
 
 namespace LMSDataService
 {
-    public class LMSDataService
-    {
+    //public class LMSDataService
+    //{
         public class SecurityHelper
         {
             public static string Base64Encode(string plainText)
@@ -36,5 +36,5 @@ namespace LMSDataService
             }
 
         }
-    }
+    // }
 }

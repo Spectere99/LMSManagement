@@ -20,15 +20,15 @@
     <dxo-export [enabled]="true" fileName="insurance_companies" [allowExportSelectedData]="false"></dxo-export>
     <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="BatchName" caption="Batch" dataType="string" [visible]="true" [allowEditing]="false" cellTemplate="batchLinkCell"></dxi-column>
-    <dxi-column dataField="Uploaded" caption="Uploaded" dataType="date" [visible]="true" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="Uploaded" caption="Uploaded" dataType="date" [visible]="true" [allowEditing]="false"  format="shortDateShortTime"></dxi-column>
     <dxi-column dataField="FileName" caption="File Name" dataType="string" [visible]="true" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="RecordCount" caption="Total Records" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="SuccessCount" caption="Import Success" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="FailureCount" caption="Import Failures" dataType="number" [visible]="true" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="SourceIpAddress" caption="Source" dataType="string" [visible]="true" [allowEditing]="true"></dxi-column>
-    <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="Created" caption="Created" dataType="date" [visible]="false" [allowEditing]="false" format="shortDateShortTime"></dxi-column>
     <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
-    <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="false" [allowEditing]="false"></dxi-column>
+    <dxi-column dataField="LastModified" caption="Last Modified" dataType="date" [visible]="false" [allowEditing]="false" format="shortDateShortTime"></dxi-column>
     <dxi-column dataField="LastModifiedBy" caption="Last Modified By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="Archived" caption="Archived?" dataType="boolean" [visible]="true" [allowEditing]="true"></dxi-column>
     <!-- <dxo-editing mode="row" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true">

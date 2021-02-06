@@ -1,0 +1,15 @@
+<dx-data-grid [dataSource]="paRequestNotes" [showBorders]="true" [columnAutoWidth]="false" [rowAlternationEnabled]="true"
+  (onEditorPreparing)="onEditorPreparing($event)" (onCellPrepared)="onCellPrepared($event)"
+  (onInitNewRow)="initRecord($event)" (onRowUpdating)="updateRecord($event)" (onRowInserting)="addRecord($event)">
+  <dxo-editing mode="form" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="true"></dxo-editing>
+  <dxi-column dataField="Created" dataType="date" [width]=150 [visible]="true" [allowEditing]="false" format="shortDateShortTime"></dxi-column>
+  <dxi-column dataField="LastModified" dataType="date" [width]=150 [visible]="true" [allowEditing]="false" format="shortDateShortTime"></dxi-column>
+  <dxi-column dataField="CreatedBy" dataType="string" [width]=100 [visible]="false" [allowEditing]="false"></dxi-column>
+  <dxi-column dataField="IsPublic" dataType="boolean" [width]=100 [visible]="true" [allowEditing]="true"></dxi-column>
+  <dxi-column dataField="NoteText" dataType="string" [width]=600 [visible]="true" [allowEditing]="true">
+    <dxo-form-item
+                [colSpan]="2"
+                editorType="dxTextArea">
+    </dxo-form-item>
+  </dxi-column>
+</dx-data-grid>

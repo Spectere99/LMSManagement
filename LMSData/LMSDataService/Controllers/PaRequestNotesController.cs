@@ -43,10 +43,10 @@ namespace LMSDataService.Controllers
                         
                     }
 
-                    if (headers.Contains("Id"))
+                     if (headers.Contains("RequestId"))
                     {
                         int id = 0;
-                        var result = int.TryParse(headers.GetValues("Id").First(), out id);
+                        var result = int.TryParse(headers.GetValues("RequestId").First(), out id);
                         IQueryable<PaRequestNote> filteredResults = db.PaRequestNotes.Where(p => p.PaRequestId == id).Include(t => t.PaRequest);
 
                         return Ok(filteredResults);
@@ -117,23 +117,42 @@ namespace LMSDataService.Controllers
             {
                 return BadRequest();
             }
+            var headers = Request.Headers;
 
-            // paRequest.CompletedTimeStamp = DateTime.Now;
-            db.Entry(paRequestNote).State = EntityState.Modified;
+            if (headers.Contains("token"))
+            {
+                var userToken = headers.GetValues("token").First();
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PaRequestNoteExists(id))
+                string userName = JwtTokenHelper.GetTokenPayloadValue(userToken, "unique_name");
+                string userRole = JwtTokenHelper.GetTokenPayloadValue(userToken, "role");
+
+                if (userRole != "Administrator") //Need to check that the userName is the same as the created by
                 {
-                    return NotFound();
+                    if (userName != paRequestNote.CreatedBy)
+                    {
+                        return BadRequest("Editing user is not an Administrator or did not create the original note.");
+                    }
                 }
-                else
+                // paRequest.CompletedTimeStamp = DateTime.Now;
+                paRequestNote.LastModified = DateTime.Now;
+                paRequestNote.LastModifiedBy = userName;
+
+                db.Entry(paRequestNote).State = EntityState.Modified;
+
+                try
                 {
-                    throw;
+                    db.SaveChanges();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!PaRequestNoteExists(id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
             }
 
@@ -149,8 +168,21 @@ namespace LMSDataService.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.PaRequestNotes.Add(paRequestNote);
-            db.SaveChanges();
+            var headers = Request.Headers;
+
+            if (headers.Contains("token"))
+            {
+                var userToken = headers.GetValues("token").First();
+                
+                string userName = JwtTokenHelper.GetTokenPayloadValue(userToken, "unique_name");
+                paRequestNote.Created = DateTime.Now;
+                paRequestNote.CreatedBy = userName;
+                paRequestNote.LastModified = DateTime.Now;
+                paRequestNote.LastModifiedBy = userName;
+
+                db.PaRequestNotes.Add(paRequestNote);
+                db.SaveChanges();
+            }
 
             return CreatedAtRoute("DefaultApi", new { id = paRequestNote.Id }, paRequestNote);
         }

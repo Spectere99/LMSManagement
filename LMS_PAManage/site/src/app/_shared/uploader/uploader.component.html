@@ -1,7 +1,14 @@
 <div class="container">
     <div class="row col-md-12">
         <div class="widget-container col-md-5">
-            <dx-file-uploader #fileUploader [uploadUrl]="uploadURL" [multiple]="true" accept=".xlsx" [(value)]="value"
+            <dx-radio-group #eventRadioGroup
+            [dataSource]="modules"
+            [value]="currentModuleId"
+            displayExpr="LookupValue"
+            layout="horizontal"
+            (onValueChanged)="onValueChanged($event)">
+        </dx-radio-group>
+            <dx-file-uploader #paRequestUploader [uploadUrl]="uploadURL" [multiple]="true" accept=".xlsx" [(value)]="value"
                 uploadMode="useButtons" [uploadHeaders]="uploadHeaders" (onUploaded)="uploadComplete($event);"></dx-file-uploader>
             <dx-button *ngIf="value.length > 0" [text]="clearButtonText" [type]="normal" (onClick)="clearQueue()"></dx-button>
             <!-- <button class="btn btn-outline-secondary" (click)="clearQueue()">Clear Queue</button> -->
@@ -22,8 +29,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
-            <app-file-upload-log></app-file-upload-log>
-        </div>
+    </div>
+    <div class="col-md-12">
+        <app-file-upload-log></app-file-upload-log>
     </div>
 </div>

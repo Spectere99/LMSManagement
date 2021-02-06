@@ -53,9 +53,10 @@ namespace LMSDataService.Controllers
 
                         if (headers.Contains("AssignedTo"))
                         {
-                            var assignedTo = headers.GetValues("AssignedTo").First();
+                            int assignedToId = 0;
+                            var res = int.TryParse(headers.GetValues("AssignedTo").First(), out assignedToId);
                             IQueryable<PaRequest> assignedToFilteredRequests =
-                                filteredResults.Where(p => p.AssignedTo == assignedTo && p.Archived==false);
+                                filteredResults.Where(p => p.AssignedToId == assignedToId && p.Archived==false);
 
                             return Ok(assignedToFilteredRequests);
                         }
@@ -71,15 +72,21 @@ namespace LMSDataService.Controllers
                     }
                     if (headers.Contains("AssignedTo"))
                     {
-                        var assignedTo = headers.GetValues("AssignedTo").First();
+                        int assignedToId = 0;
+                        var res = int.TryParse(headers.GetValues("AssignedTo").First(), out assignedToId);
                         IQueryable<PaRequest> results = null;
                         if (showArchived)
                         {
-                            results = db.PaRequests.Where(p => p.AssignedTo == assignedTo).Include(t => t.FileUploadLog);
+                            results = db.PaRequests.Where(p => p.AssignedToId == assignedToId)
+                                .Include(t => t.FileUploadLog)
+                                .Include(t=>t.AssignedTo);
                             return Ok(results);
                         }
 
-                        results = db.PaRequests.Where(p => p.AssignedTo == assignedTo && p.Archived==false).Include(t => t.FileUploadLog);
+                        results = db.PaRequests.Where(p => p.AssignedToId == assignedToId && p.Archived==false)
+                            .Include(t => t.FileUploadLog)
+                            .Include(t=>t.AssignedTo);
+                        // results = db.PaRequests.Where(p => p.Archived == false);
                         return Ok(results);
 
 
@@ -88,10 +95,14 @@ namespace LMSDataService.Controllers
                     IQueryable<PaRequest> fullResults = null;
                     if (showArchived)
                     {
-                        fullResults = db.PaRequests.Include(t => t.FileUploadLog);
+                        fullResults = db.PaRequests
+                                        .Include(t => t.FileUploadLog)
+                                        .Include(t=>t.AssignedTo);
                         return Ok(fullResults);
                     }
-                    fullResults = db.PaRequests.Where(p=>p.Archived==false).Include(t => t.FileUploadLog);
+                    fullResults = db.PaRequests.Where(p=>p.Archived==false)
+                        .Include(t => t.FileUploadLog)
+                        .Include(t=>t.AssignedTo);
                     return Ok(fullResults);
                 }
 
@@ -102,12 +113,16 @@ namespace LMSDataService.Controllers
                 if (headers.Contains("Id"))
                 {
                     var id = int.Parse(headers.GetValues("Id").First());
-                    IQueryable<PaRequest> filteredResults = db.PaRequests.Where(p => p.FileUploadLogId == id).Include(t=>t.FileUploadLog);
+                    IQueryable<PaRequest> filteredResults = db.PaRequests.Where(p => p.FileUploadLogId == id)
+                        .Include(t=>t.FileUploadLog)
+                        .Include(t => t.AssignedTo); ;
                     return Ok(filteredResults);
 
                 }
 
-                IQueryable<PaRequest> results = db.PaRequests.Include(t=>t.FileUploadLog);
+                IQueryable<PaRequest> results = db.PaRequests
+                                                    .Include(t=>t.FileUploadLog)
+                                                    .Include(t=>t.AssignedTo);
                 return Ok(results);
 
             }

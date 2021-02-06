@@ -143,6 +143,18 @@
     <Compile Include="Migrations\202102030029270_PaRequestNotes_v1.1.Designer.cs">
       <DependentUpon>202102030029270_PaRequestNotes_v1.1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102041832450_PaRequest_v1.3.cs" />
+    <Compile Include="Migrations\202102041832450_PaRequest_v1.3.Designer.cs">
+      <DependentUpon>202102041832450_PaRequest_v1.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102041931562_PaRequest_v1.4.cs" />
+    <Compile Include="Migrations\202102041931562_PaRequest_v1.4.Designer.cs">
+      <DependentUpon>202102041931562_PaRequest_v1.4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102052152358_PaRequest_v1.5.cs" />
+    <Compile Include="Migrations\202102052152358_PaRequest_v1.5.Designer.cs">
+      <DependentUpon>202102052152358_PaRequest_v1.5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,6 +206,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102030029270_PaRequestNotes_v1.1.resx">
       <DependentUpon>202102030029270_PaRequestNotes_v1.1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041832450_PaRequest_v1.3.resx">
+      <DependentUpon>202102041832450_PaRequest_v1.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102041931562_PaRequest_v1.4.resx">
+      <DependentUpon>202102041931562_PaRequest_v1.4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102052152358_PaRequest_v1.5.resx">
+      <DependentUpon>202102052152358_PaRequest_v1.5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,16 @@
-<div class="col-md-12">
+<div id="main" class="col-md-12">
+  <dx-load-panel
+    #loadPanel
+    shadingColor="rgba(0,0,0,0.4)"
+    [position]="{ of: '#main' }"
+    [(visible)]="loadingVisible"
+    [showIndicator]="true"
+    [showPane]="true"
+    [shading]="true"
+    [closeOnOutsideClick]="false"
+    (onShown)="onShown()"
+    (onHidden)="onHidden()">
+</dx-load-panel>
   <div class="row">
     <div *ngIf="securityMessage" class="alert alert-danger">
         {{securityMessage}}
@@ -30,10 +42,10 @@
           (click)="batchAssign($event)">
       </div>
   </div>
-  <dx-data-grid id="gridContainer" [dataSource]="paRequests" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
+  <dx-data-grid #targetDataGrid id="gridContainer" [dataSource]="paRequests" [allowColumnReordering]="true" [allowColumnResizing]="true" [columnAutoWidth]="true"
     (onContentReady)="onContentReady($event)" (onCellPrepared)="onCellPrepared($event)" (onRowPrepared)="onRowPrepared($event)" [height]="setHeight()"
     (onInitNewRow)="initRecord($event)" (onRowUpdating)="updateRecord($event)" (onRowInserting)="addRecord($event)" 
-    (onSelectionChanged)="selectionChanged($event)"  (onEditorPreparing)="onEditorPreparing($event)">
+    (onSelectionChanged)="selectionChanged($event)"  (onEditorPreparing)="onEditorPreparing($event)" (onEditingStart)="onEditingStart($event)">
     <dxo-selection
             mode="multiple"
         ></dxo-selection>
@@ -49,7 +61,7 @@
     <dxi-column dataField="Id" caption="Id" dataType="number" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="FileUploadLogId" caption="BatchId" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="Submitted" caption="Date Submitted" dataType="date" [visible]="false" [allowEditing]="globals.isAdmin"></dxi-column>
-    <dxi-column dataField="AssignedTo" caption="Assigned To" dataType="number" [visible]="true" [allowEditing]="globals.isAdmin">
+    <dxi-column dataField="AssignedToId" caption="Assigned To" dataType="number" [visible]="true" [allowEditing]="globals.isAdmin">
       <dxo-lookup [dataSource]="users" valueExpr="Id" displayExpr="UserName">
       </dxo-lookup>
     </dxi-column>
@@ -74,16 +86,21 @@
         <dxo-lookup [dataSource]="billingStatusLookup" valueExpr="Id" displayExpr="LookupValue">
         </dxo-lookup>
       </dxi-column>
+    <dxi-column dataField="Note" caption="Initial Notes" dataType="string" [visible]="true" [allowEditing]="false"></dxi-column>
     <dxi-column dataField="Approval" caption="Approval Date" dataType="date" [visible]="true"></dxi-column>
     <dxi-column dataField="ApprovalDocumentUrl" caption="Approval Doc" dataType="string" [visible]="true" [width]="300" cellTemplate="linkTemplate"></dxi-column>
     <dxi-column dataField="Denial" caption="Denial Date" dataType="date" [visible]="true"></dxi-column>
-    <dxi-column dataField="Note" caption="Notes" dataType="string" [visible]="false"></dxi-column>
     <dxi-column dataField="CreatedBy" caption="Created By" dataType="string" [visible]="false" [allowEditing]="false"></dxi-column>
     <div *dxTemplate="let data of 'linkTemplate'">
       <a [href]="data.value" target="_blank">{{data.value}}</a>
     </div>
+    <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+    <div *dxTemplate="let request of 'detail'">
+        <div>Notes:</div>
+        <app-pa-notes-detail [key]="request.data.Id"></app-pa-notes-detail>
+    </div>
     <dxo-editing mode="popup" [allowUpdating]="true" [allowDeleting]="false" [allowAdding]="globals.isAdmin">
-      <dxo-popup title="Edit" [showTitle]="false" [width]="900" [height]="745">
+      <dxo-popup title="Edit" [showTitle]="false" [width]="900" [height]="700">
       </dxo-popup>
       <dxo-form colCount="2">
         <dxi-item itemType="group" caption="General">
@@ -96,7 +113,7 @@
           <dxi-item dataField="BillingStatus"></dxi-item>
         </dxi-item>
         <dxi-item itemType="group" caption="Tracking Details">
-          <dxi-item dataField="AssignedTo"></dxi-item>
+          <dxi-item dataField="AssignedToId"></dxi-item>
           <dxi-item dataField="Priority"></dxi-item>
           <dxi-item dataField="Status"></dxi-item>
           <dxi-item dataField="NonMeds"></dxi-item>
@@ -107,7 +124,7 @@
           <dxi-item dataField="Completed"></dxi-item>
         </dxi-item>
         <dxi-item [colSpan]="2" dataField="ApprovalDocumentUrl"></dxi-item>
-        <dxi-item dataField="Note" [editorOptions]="{ height: 90 }" [colSpan]="2"></dxi-item>
+        <dxi-item dataField="Note" [colSpan]="2"></dxi-item>
       </dxo-form> 
     </dxo-editing>
   </dx-data-grid>

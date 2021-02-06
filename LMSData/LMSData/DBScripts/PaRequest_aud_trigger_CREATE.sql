@@ -23,7 +23,7 @@ declare	 @recordId				int
         ,@denial				datetime
         ,@approvalDocumentUrl	nvarchar(max)
         ,@note					nvarchar(max)
-        ,@assignedTo			nvarchar(max)
+        ,@assignedToId			int
         ,@archived				bit
         ,@insuranceCompany_Id	int
         ,@fileUploadLogId		int
@@ -54,7 +54,7 @@ begin
 			,@denial = Denial
 			,@approvalDocumentUrl = ApprovalDocumentUrl
 			,@note = Note
-			,@assignedTo = AssignedTo
+			,@assignedToId = AssignedToId
 			,@archived = Archived
 			,@insuranceCompany_Id = InsuranceCompany_Id
 			,@fileUploadLogId = FileUploadLogId
@@ -80,7 +80,7 @@ begin
            ,[Denial]
            ,[ApprovalDocumentUrl]
            ,[Note]
-           ,[AssignedTo]
+           ,[AssignedToId]
            ,[Archived]
            ,[InsuranceCompany_Id]
            ,[Action]
@@ -107,7 +107,7 @@ begin
            ,@denial
            ,@approvalDocumentUrl
            ,@note
-           ,@assignedTo
+           ,@assignedToId
            ,@archived
            ,@insuranceCompany_Id
            ,@action
@@ -140,7 +140,7 @@ begin
 			,@denial = Denial
 			,@approvalDocumentUrl = ApprovalDocumentUrl
 			,@note = Note
-			,@assignedTo = AssignedTo
+			,@assignedToId = AssignedToId
 			,@archived = Archived
 			,@insuranceCompany_Id = InsuranceCompany_Id
 			,@fileUploadLogId = FileUploadLogId
@@ -166,7 +166,7 @@ begin
            ,[Denial]
            ,[ApprovalDocumentUrl]
            ,[Note]
-           ,[AssignedTo]
+           ,[AssignedToId]
            ,[Archived]
            ,[InsuranceCompany_Id]
            ,[Action]
@@ -193,7 +193,7 @@ begin
            ,@denial
            ,@approvalDocumentUrl
            ,@note
-           ,@assignedTo
+           ,@assignedToId
            ,@archived
            ,@insuranceCompany_Id
            ,@action
@@ -226,7 +226,7 @@ begin
 			,@denial = Denial
 			,@approvalDocumentUrl = ApprovalDocumentUrl
 			,@note = Note
-			,@assignedTo = AssignedTo
+			,@assignedToId = AssignedToId
 			,@archived = Archived
 			,@insuranceCompany_Id = InsuranceCompany_Id
 			,@fileUploadLogId = FileUploadLogId
@@ -252,7 +252,7 @@ begin
            ,[Denial]
            ,[ApprovalDocumentUrl]
            ,[Note]
-           ,[AssignedTo]
+           ,[AssignedToId]
            ,[Archived]
            ,[InsuranceCompany_Id]
            ,[Action]
@@ -279,7 +279,7 @@ begin
            ,@denial
            ,@approvalDocumentUrl
            ,@note
-           ,@assignedTo
+           ,@assignedToId
            ,@archived
            ,@insuranceCompany_Id
            ,@action

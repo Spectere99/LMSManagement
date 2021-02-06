@@ -20,7 +20,8 @@ export class PaRequest {
     ApprovalDocumentUrl: string;
     Note: string;
     Assigned: string;
-    AssignedTo: string;
+    // AssignedTo: string;
+    AssignedToId: number;
     Created: string;
     CreatedBy: string;
     LastModified: string;
@@ -86,7 +87,7 @@ export class PaRequestService {
         }); */
     }
 
-    getUsersBatchPaRequests(userId, assignedTo: string): Observable<any> {
+    getUsersBatchPaRequests(userId, assignedTo: number): Observable<any> {
         // console.log('getUsersBatchPaRequests');
         const queryHeaders = [
         {

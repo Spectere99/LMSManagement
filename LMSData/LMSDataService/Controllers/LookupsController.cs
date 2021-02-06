@@ -42,6 +42,13 @@ namespace LMSDataService.Controllers
                 var user = headers.GetValues("userid").First();
                 _log.InfoFormat("Handling GET request from user: {0}", user);
 
+                if (headers.Contains("lookupTypeId"))
+                {
+                    var lookupTypeId = 0;
+                    var result = int.TryParse(headers.GetValues("lookupTypeId").First(), out lookupTypeId);
+                    return Ok(db.Lookups.Where(p => p.LookupTypeId == lookupTypeId).ToList());
+                }
+
                 try
                 {
                     if (showArchived)

@@ -50,6 +50,16 @@ export class LookupService {
             .pipe(map(res => res.json()));
     }
 
+    getLookupsByType(userId, lookupTypeId: number) {
+        const queryHeaders = [
+            {
+                key: 'lookupTypeId',
+                value: lookupTypeId
+            }];
+        return this.http.get(this.baseURL + this._ACTION, { headers: this.getHeaders(userId, queryHeaders) })
+            .pipe(map(res => res.json()));
+    }
+
     saveLookupItem(userId, lookup: LookupItem) {
         if (lookup.Id === 0) {  // Insert
             return this.http.post(this.baseURL + this._ACTION, lookup, { headers: this.getHeaders(userId, undefined) })

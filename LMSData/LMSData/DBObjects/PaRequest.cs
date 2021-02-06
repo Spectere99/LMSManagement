@@ -30,7 +30,9 @@ namespace LIMSData.DBObjects
         public string ApprovalDocumentUrl  { get; set; }
         public string Note { get; set; }
         public DateTime? Assigned { get; set; }
-        public string AssignedTo { get; set; }
+        [ForeignKey("AssignedTo")]
+        public int? AssignedToId { get; set; }
+        public User AssignedTo { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
         public DateTime LastModified { get; set; }
