@@ -69,6 +69,7 @@ namespace LMSDataService.Controllers
 
         // GET: api/Lookups/5
         [ResponseType(typeof(Lookup))]
+        [Route("api/lookups/{id}", Name = "GetLookupById")]
         public IHttpActionResult GetLookup(int id)
         {
             if (_log.IsDebugEnabled)
@@ -158,7 +159,7 @@ namespace LMSDataService.Controllers
                 db.Lookups.Add(lookup);
                 db.SaveChanges();
 
-                return CreatedAtRoute("DefaultApi", new { id = lookup.Id }, lookup);
+                return CreatedAtRoute("GetLookupById", new { id = lookup.Id }, lookup);
             }
             catch (Exception e)
             {
